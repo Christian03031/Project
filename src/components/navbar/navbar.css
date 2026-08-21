@@ -52,3 +52,10 @@
         cursor: pointer;
     }
 }
+
+.sign-in{
+    padding: 1em 2em;
+    border-radius: 25px;
+    border: 1px solid rgba(70, 68, 68, 0.466);
+    cursor: pointer;
+}

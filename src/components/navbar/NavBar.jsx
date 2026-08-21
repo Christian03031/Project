@@ -22,7 +22,7 @@ export default function NavBar(){
                 <ShoppingBasket color="grey" size={30} strokeWidth={3}/>
             </div>
             <div className="user">
-                <User color="grey" size={30} strokeWidth={3}/>
+                <button className="sign-in">Sign in</button>
             </div>
         </div>
     </nav>
