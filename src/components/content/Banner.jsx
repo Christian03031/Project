@@ -1,12 +1,23 @@
-import backgroundImage from "/src/assets/images/banner.webp"
+import "./banner.css"
+import { Fragment } from "react/jsx-runtime"
 
-export default function Banner(){
-    return <div className="banner" style={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backdropFilter: 'blur(10px)',
-        }}>
+export default function Banner({ backgroundImage }) {
+    console.log(backgroundImage)
+    return <Fragment>
+        <div
+            className="banner"
+            style={{
+                "--banner-image": `url(${backgroundImage})`
+            }}
+        >
+            <div className="content">
+                <h2>Order your favourite food here</h2>
+                <p>Choose from a diverse menu featuring a delectable array of dishes crafted with the finest ingredients and culinary expertise. Our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time</p>
+                <button>
+                    View Menu
+                </button>
+            </div>
+        </div>
+    </Fragment >
 
-    </div>
 }

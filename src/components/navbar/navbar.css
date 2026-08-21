@@ -41,6 +41,9 @@
 
     & div {
         transition: all .1s linear;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
 
 

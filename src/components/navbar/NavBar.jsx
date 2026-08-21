@@ -16,13 +16,13 @@ export default function NavBar(){
         </div>
         <div className="data">
             <div className="search">
-                <Search color="grey" size={40} strokeWidth={3}/>
+                <Search color="grey" size={30} strokeWidth={3}/>
             </div>
             <div className="basket">
-                <ShoppingBasket color="grey" size={40} strokeWidth={3}/>
+                <ShoppingBasket color="grey" size={30} strokeWidth={3}/>
             </div>
             <div className="user">
-                <User color="grey" size={40} strokeWidth={3}/>
+                <User color="grey" size={30} strokeWidth={3}/>
             </div>
         </div>
     </nav>

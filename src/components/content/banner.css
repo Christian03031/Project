@@ -1,0 +1,71 @@
+.banner {
+    width: 90%;
+    position: relative;
+    margin: 2em 0;
+    border-radius: 25px;
+}
+
+.banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(59, 58, 58, 0.3),
+            rgba(194, 190, 190, 0.1)
+        ),
+        center / cover no-repeat var(--banner-image);
+
+    filter: blur(0.5px);
+    transform: scale(1.02);
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    width: 75%;
+
+    padding: 2em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+
+
+    &>* {
+        color: wheat;
+        font-family: "Source Code Pro";
+
+    }
+
+    & h2 {
+        font-size: 50px;
+    }
+
+    & p {
+        font-size: 1em;
+        color: rgb(41, 40, 40);
+        font-weight: 1000;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        line-height: 1.8em;
+    }
+
+    & button {
+        background-color: white;
+        color: grey;
+        border: 1px solid transparent;
+        border-radius: 25px;
+        padding: .7em;
+        transition: all .2s linear;
+
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgb(223, 145, 2);
+        }
+    }
+
+
+}
