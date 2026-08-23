@@ -10,7 +10,7 @@ export default function NavBar(){
             <ul>
                 <li>Home</li>
                 <li>Menu</li>
-                <li>Mobile App</li>
+                <li>Basket</li>
                 <li>Contact us</li>
             </ul>
         </div>

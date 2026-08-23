@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import "./filter.css"
 
 export default function Filter({ categories }) {
@@ -7,11 +7,8 @@ export default function Filter({ categories }) {
     const timeOutRef = useRef(null);
 
     useEffect(() => {
-
-
+        let   timer = null;
         const container = containerRef.current;
-        const timer = timeOutRef.current;
-
         const handleWheel = (event) => {
 
             event.preventDefault();
@@ -20,7 +17,7 @@ export default function Filter({ categories }) {
 
             container.scrollLeft += 3 * event.deltaY;
 
-            timeOutRef.current = setTimeout(() => { timeout = null; }, 100)
+            timer = setTimeout(() => { timer = null;}, 100)
 
         }
 
@@ -42,17 +39,16 @@ export default function Filter({ categories }) {
         </div>
         <ul ref={containerRef}>
             {
-                categories.map(a =>
-                    <li key={a.idCategory}>
-                        <div className="image-wrapper">
-                            <img src={a.strCategoryThumb} alt={`cat-${a.idCategory}`} />
-                        </div>
-                        <span>{a.strCategory}</span>
-                    </li>
+                categories.map(a => <li key={a.idCategory}
+                            style={{ "--bg-image": `url(${a.strCategoryThumb})` }}>
+                                <div className= "image-container"/>
+                                <span>{a.strCategory}</span>
+                        </li>
+                        
                 )
             }
         </ul>
 
         <hr className="separator" />
-    </div>
+    </div >
 }

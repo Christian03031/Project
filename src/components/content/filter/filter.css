@@ -1,3 +1,9 @@
+*::selection {
+    background-color: rgb(224, 203, 9);
+    color: black;
+
+}
+
 .filter-section {
     width: min(1200px, 90%);
     height: 100vh;
@@ -10,7 +16,6 @@
         align-items: flex-start;
         gap: 2em;
 
-        /* gap: 1.5em; */
         & h2 {
             font-size: 50px;
         }
@@ -21,6 +26,8 @@
             font-weight: 1000;
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             line-height: 1.8em;
+
+
         }
     }
 
@@ -46,6 +53,15 @@
             transition: all .1s linear;
             position: relative;
 
+            & .image-container {
+                width: 100px;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                background: center / cover no-repeat var(--bg-image);
+            
+            }
+
+
             & span {
                 font-size: 1.3em;
             }
@@ -59,22 +75,6 @@
 
         }
 
-
-        & li .image-wrapper {
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            & img {
-                height: 10em;
-                aspect-ratio: 1 / 1;
-                background-color: rgb(218, 142, 43);
-                border-radius: 50%;
-                position: relative;
-
-            }
-        }
 
     }
 
