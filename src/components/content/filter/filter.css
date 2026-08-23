@@ -4,9 +4,20 @@
 
 }
 
+@keyframes selection {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.98);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .filter-section {
     width: min(1200px, 90%);
-    height: 100vh;
 
     & .text-filter {
         display: flex;
@@ -53,12 +64,29 @@
             transition: all .1s linear;
             position: relative;
 
+
             & .image-container {
                 width: 100px;
                 aspect-ratio: 1;
                 border-radius: 50%;
                 background: center / cover no-repeat var(--bg-image);
-            
+                position: relative;
+                transition: all 1s linear;
+
+                &.selected {
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        inset: -.5em;
+                        border-radius: 50%;
+
+                        border: 5px solid orange;
+
+                        animation: selection .5s ease forwards;
+                    }
+
+                }
+
             }
 
 
@@ -77,12 +105,11 @@
 
 
     }
+}
 
-    & separator {
-        border: 0;
-        height: 1px;
-        background: grey;
-        margin: 2rem 0;
-    }
-
+& separator {
+    border: 0;
+    height: 1px;
+    background: grey;
+    margin: 2rem 0;
 }

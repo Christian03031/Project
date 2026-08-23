@@ -1,0 +1,75 @@
+.dishes{
+    width: min(1200px, 90%);
+    display: grid;
+    margin-top: 5em;
+
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(250px, 1fr)
+    );
+
+    gap: 1.8em;
+}
+
+.dish-card {
+    height: 400px;
+    width:  16.5em;
+    border-radius: 1em;
+    box-shadow: 10px 15px 30px rgba(128, 128, 128, 0.103), 
+    -10px 10px 30px rgba(128, 128, 128, 0.103);
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+    /* background: var(--bg-image); */
+    
+    transition: all .1s linear;
+    
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+
+    & .dish-img{
+        height: 200px;
+        background: center / cover no-repeat var(--bg-image-meal);
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+    }
+
+    & .dish-description{
+        display: flex;
+        height: 50%;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1em 1em;
+        /* gap: .5em; */
+        /* align-items: center; */
+
+        & .dish-info{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+
+            & .dish-name{
+                width: 50%;
+                height: 3em;
+                overflow: hidden;
+                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                color: #000;
+                font-weight: 600;
+                
+            }
+        }
+
+        & .dish-price{
+            font-size:x-large;
+            color: orangered;
+            font-weight: 700;
+            /* padding-bottom: 1em; */
+            justify-self: flex-end;
+        }
+
+    }
+}

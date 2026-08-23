@@ -1,10 +1,12 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import "./filter.css"
 
 export default function Filter({ categories }) {
 
     const containerRef = useRef(null);
     const timeOutRef = useRef(null);
+
+    const [selected, setSelected] = useState(-1);
 
     useEffect(() => {
         let   timer = null;
@@ -32,6 +34,8 @@ export default function Filter({ categories }) {
 
     }, []);
 
+
+
     return <div className="filter-section">
         <div className="text-filter">
             <h2>Explore our menu</h2>
@@ -40,8 +44,9 @@ export default function Filter({ categories }) {
         <ul ref={containerRef}>
             {
                 categories.map(a => <li key={a.idCategory}
-                            style={{ "--bg-image": `url(${a.strCategoryThumb})` }}>
-                                <div className= "image-container"/>
+                            style={{ "--bg-image": `url(${a.strCategoryThumb})`}}
+                            onClick={() => {console.log("a"); setSelected(a.idCategory)}}>
+                                <div className= {`image-container${selected === a.idCategory ? " selected" : ""}`}/>
                                 <span>{a.strCategory}</span>
                         </li>
                         
