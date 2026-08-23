@@ -1,75 +1,174 @@
-.dishes{
+@keyframes reveal {
+    0% {
+        opacity: 0;
+        transform: translateX(20px) scale(1.1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+.dishes {
     width: min(1200px, 90%);
     display: grid;
     margin-top: 5em;
 
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(250px, 1fr)
-    );
+    grid-template-columns: repeat(auto-fit,
+            minmax(250px, 1fr));
 
     gap: 1.8em;
 }
 
 .dish-card {
     height: 400px;
-    width:  16.5em;
+    width: 16.5em;
     border-radius: 1em;
-    box-shadow: 10px 15px 30px rgba(128, 128, 128, 0.103), 
-    -10px 10px 30px rgba(128, 128, 128, 0.103);
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; */
-    /* background: var(--bg-image); */
-    
+    box-shadow: 10px 15px 30px rgba(128, 128, 128, 0.103),
+        -10px 10px 30px rgba(128, 128, 128, 0.103);
+
     transition: all .1s linear;
-    
-    &:hover{
+
+    &:hover {
         cursor: pointer;
         transform: scale(1.02);
     }
 
-    & .dish-img{
+    & .dish-img {
         height: 200px;
+        position: relative;
         background: center / cover no-repeat var(--bg-image-meal);
         border-top-left-radius: 1em;
         border-top-right-radius: 1em;
+
+
+
+
+        & .qty-container {
+            position: absolute;
+            user-select: none;
+            border: 1px solid transparent;
+            text-align: center;
+            width: 5em;
+            display: flex;
+            justify-content: space-around;
+            background-color: aliceblue;
+            bottom: .5em;
+            right: .5em;
+            /* padding: .5em; */
+            border-radius: 50px;
+            padding: .2em .2em;
+
+
+            transition: all .2s linear;
+            animation: reveal .3s ease forwards;
+
+            & span {
+                transition: all .2s linear;
+                font-size: 1.5em;
+                width: 1em;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                transition: all .1s linear;
+
+                &:nth-of-type(2) {
+                    font-size: 1em;
+                    align-self: center;
+                    font-weight: bold;
+                }
+
+                &:active {
+                    transform: scale(1.1);
+                }
+
+            }
+
+            & .add {
+                background-color: rgb(208, 250, 213);
+                color: rgb(61, 164, 70);
+                font-size: 1.5em;
+                border-radius: 50px;
+                
+
+
+
+            }
+
+            & .rem {
+                background-color: rgb(252, 213, 212);
+                font-size: 1.5em;
+                color: rgb(171, 64, 57);
+                border-radius: 50px;
+                /* width: 1em; */
+            }
+        }
+
     }
 
-    & .dish-description{
+
+
+    & .dish-description {
         display: flex;
         height: 50%;
         flex-direction: column;
         justify-content: space-between;
         padding: 1em 1em;
-        /* gap: .5em; */
-        /* align-items: center; */
 
-        & .dish-info{
+        & .dish-info {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
 
 
-            & .dish-name{
+            & .dish-name {
                 width: 50%;
                 height: 3em;
                 overflow: hidden;
-                font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
                 color: #000;
                 font-weight: 600;
-                
+
             }
         }
 
-        & .dish-price{
-            font-size:x-large;
+        & .dish-price {
+            font-size: x-large;
             color: orangered;
             font-weight: 700;
-            /* padding-bottom: 1em; */
             justify-self: flex-end;
         }
 
     }
+}
+
+.btn-add {
+    position: absolute;
+    /* border: 1px solid transparent; */
+    /* text-align: center; */
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 1em;
+    height: 1em;
+    bottom: .3em;
+    right: .3em;
+    user-select: none;
+    border-radius: 50%;
+    transition: all .2s linear;
+    
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+
+    & span {
+        display: block;
+        line-height: 5;
+    }
+
+
 }

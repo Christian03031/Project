@@ -77,7 +77,7 @@
                     &::after {
                         content: "";
                         position: absolute;
-                        inset: -.5em;
+                        inset: -8px;
                         border-radius: 50%;
 
                         border: 5px solid orange;

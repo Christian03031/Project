@@ -1,7 +1,16 @@
 import "./navbar.css"
-import {Search, ShoppingBasket, User} from 'lucide-react'
+import { Search, ShoppingBasket, User } from 'lucide-react'
 
-export default function NavBar(){
+
+export function Basket({color, size, strokeWidth = 3, hasItems}) {
+    return <>
+        <ShoppingBasket />
+        {hasItems && <span className="notification-dot"></span>}
+    </>
+}
+
+
+export default function NavBar() {
     return <nav className="navbar">
         <div className="logo">
             <img src="/favicon.svg" alt="logo-image" />
@@ -16,10 +25,11 @@ export default function NavBar(){
         </div>
         <div className="data">
             <div className="search">
-                <Search color="grey" size={30} strokeWidth={3}/>
+                <Search/>
             </div>
             <div className="basket">
-                <ShoppingBasket color="grey" size={30} strokeWidth={3}/>
+                <Basket hasItems={true}/>
+                
             </div>
             <div className="user">
                 <button className="sign-in">Sign in</button>

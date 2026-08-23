@@ -59,3 +59,18 @@
     border: 1px solid rgba(70, 68, 68, 0.466);
     cursor: pointer;
 }
+
+.basket{
+    position: relative;
+}
+.notification-dot{
+    color: red;
+    background-color: red;
+    width: .5em;
+    height: .5em;
+    position: absolute;
+    top: 8px;
+    right: -2px;
+    border-radius: 50px;
+    border: 1px solid rgb(214, 10, 10);
+}
