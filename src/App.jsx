@@ -1,16 +1,20 @@
 import { Fragment, useEffect, useRef, useState } from "react"
-import NavBar from "./components/navbar/NavBar"
+import NavBar, { Basket } from "./components/navbar/NavBar"
 import Banner from "./components/content/banner/Banner"
 import Filter from "./components/content/filter/Filter"
-import {Dishes, Dish} from "./components/content/dishes/Dishes"
+import { Dishes } from "./components/content/dishes/Dishes"
+
+import { BasketProvider } from "./components/contextBasket"
 
 import backgroundImage from "./assets/images/banner.webp"
 import "./main.css"
 
+
+
 function App() {
 
   const URL_CATEGORIES = 'https://www.themealdb.com/api/json/v1/1/categories.php';
-  const LATEST_MEALS = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=beef'; 
+  const LATEST_MEALS = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=beef';
 
   const [categories, setCategories] = useState([]);
   const [dishes, setDishes] = useState([]);
@@ -36,12 +40,12 @@ function App() {
 
   }, []);
 
-  return <Fragment>
-    <NavBar />
-    <Banner backgroundImage={backgroundImage}/>
-    <Filter categories={categories}/>
-    <Dishes dishes={dishes}/>
-  </Fragment>
+  return <BasketProvider>
+      <NavBar />
+      <Banner backgroundImage={backgroundImage} />
+      <Filter categories={categories} />
+      <Dishes dishes={dishes} />
+  </BasketProvider>
 }
 
 export default App

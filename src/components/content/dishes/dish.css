@@ -145,8 +145,6 @@
 
 .btn-add {
     position: absolute;
-    /* border: 1px solid transparent; */
-    /* text-align: center; */
     font-size: 2em;
     display: flex;
     align-items: center;
