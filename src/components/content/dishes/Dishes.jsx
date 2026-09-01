@@ -19,7 +19,7 @@ export function Dish({ infos }) {
     return <div className="dish-card" style={{ "--bg-image-meal": `url(${infos.strMealThumb})` }}>
 
         <div className="dish-img">
-            <AddDish id={infos.strId} />
+            <AddDish id={infos.idMeal} />
         </div>
         <div className="dish-description">
             <div className="dish-info">
@@ -42,13 +42,14 @@ export function AddDish({ id }) {
     return (value !== 0 && <div className="qty-container">
         <span className="rem" onClick={e => {
             setValue(value => value - 1 <= 0 ? 0 : value - 1)
+            dispatch({ type: (value > 1) ? 'REMOVE_DUPLICATE_BASKET' : 'REMOVE_FROM_BASKET', payload: { id: id, quantity: value - 1 } })
         }}>-</span>
 
         <span>{value === 0 ? "" : value}</span>
 
         <span className="add" onClick={e => {
             setValue(value => value + 1 >= 10 ? 10 : value + 1);
-            dispatch({ type: 'ADD_TO_BASKET', payload: { id: id, quantity: value + 1 } });
+            dispatch({ type: 'DUPLICATE_BASKET', payload: { id: id, quantity: value + 1 } });
             console.log(basket);
         }}
             onSelect={e => { e.preventDefault() }}>+</span>

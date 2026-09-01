@@ -5,9 +5,17 @@ const dispatchContext = createContext(null);
 
 function basketReducer(basketContent, action){
     switch(action.type){
-        case 'ADD_TO_BASKET': {console.log("we are here"); return [...basketContent, {...action.payload}]};
+        case 'ADD_TO_BASKET': {
+            return [...basketContent, {...action.payload}]
+        };
+
+        case 'DUPLICATE_BASKET': {
+            return [...basketContent.filter(a => a.id !== action.payload.id), {...action.payload, quantity: action.payload.quantity + 1}]
+        }
+
         case 'REMOVE_FROM_BASKET': return [...basketContent.filter(a => a.id != action.payload.id)];
-        case 'REMOVE_ALL': return [];
+
+        case 'REMOVE_DUPLICATE_BASKET': return  [...basketContent.filter(a => a.id !== action.payload.id), {...action.payload, quantity: action.payload.quantity - 1}];
         default: return basketContent;
     }
 }
