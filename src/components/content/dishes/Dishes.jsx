@@ -1,45 +1,82 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./dish.css";
 
 import { useBasket, useDispatch } from "../../contextBasket";
 
 
-export function Dishes({ dishes, page, handlePageNumber}) {
-
+function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef }) {
     
-    const sectionRef = useRef(null);
-    console.log(page);
+    const paginatorRef = useRef(null);
+    
+    
+    useEffect(() => {
+        
+        let container = paginatorRef.current
+        let timer = null;
+
+        const handleWheel = (event) => {
+            event.preventDefault();
+
+            if (timer) {
+                return;
+            }
+
+            container.scrollLeft += 2 * event.deltaY
+
+            timer = setTimeout(() => {timer = null}, 100);
+        }
+
+        container.addEventListener("wheel", handleWheel, {passive: false})
+
+        return () => {
+            container.removeEventListener("wheel", handleWheel)
+            clearTimeout(timer)
+        }
+    }, [])
+
+    return <ul ref={paginatorRef} className="pagination-container">
+        {Array.from({ length: paginationLenght }, (_, i) => i + 1).map((a, i) =>
+            <li key={i} className={page === i + 1 ? "selected" : ""} onClick={
+                e => {
+                    console.log("page: ", page)
+                    console.log(i)
+                    handlePageNumber(a);
+
+                    sectionRef.current.scrollIntoView({ top: "10px", behavior: 'smooth' });
+                }}>{a}</li>)}
+    </ul>
+
+}
+
+export function Dishes({ dishes, page, handlePageNumber }) {
 
     const length = dishes.length;
+    console.log("dishes length: ", dishes.length)
     const dishesPerPage = 10;
-    const paginationLenght = length / dishesPerPage;
+    const sectionRef = useRef(null);
+    const paginationLenght = length > 10 ? length / dishesPerPage : length;
+    const currentStart = length > 10 ? dishesPerPage * page - 1 + (page > 1 ? 1 : 0) : 0;
+    let dishRange = dishes.slice(currentStart, currentStart + 10);
 
-    const currentStart = dishesPerPage * page - 1 + (page > 1 ? 1 : 0);
-    let dishRange = dishes.slice(currentStart, currentStart + dishesPerPage)
-
-    console.log(page);
-
+    console.log("dish range: ", dishRange)
 
     return <>
         <div className="main-container">
             <section ref={sectionRef} className="dishes">
+
+
                 {
                     dishRange.map(dish => <article key={dish.strId}><Dish infos={{ ...dish }} /></article>)
                 }
 
-
             </section>
-            <ul className="pagination-container">
-                {Array.from({ length: paginationLenght }, (_, i) => i + 1).map((a, i) =>
-                    <li key={i} className = {page === i + 1? "selected" : ""} onClick={
-                        e => {
-                            console.log("page: ", page)
-                            console.log(i)
-                            handlePageNumber(a);
 
-                            sectionRef.current.scrollIntoView({ top: "10px", behavior: 'smooth' });
-                        }}>{a}</li>)}
-            </ul>
+            <NavPaginator
+                paginationLenght={paginationLenght}
+                page={page}
+                handlePageNumber={handlePageNumber}
+                sectionRef={sectionRef}></NavPaginator>
+
         </div>
 
 
