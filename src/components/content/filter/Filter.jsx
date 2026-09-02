@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import "./filter.css"
 
-export default function Filter({ categories }) {
+export default function Filter({ categories, handleUrlRequest, handlePageNumber}) {
 
     const containerRef = useRef(null);
     const timeOutRef = useRef(null);
@@ -45,7 +45,10 @@ export default function Filter({ categories }) {
             {
                 categories.map(a => <li key={a.idCategory}
                             style={{ "--bg-image": `url(${a.strCategoryThumb})`}}
-                            onClick={() => {console.log("a"); setSelected(a.idCategory)}}>
+                            onClick={() => {
+                                handlePageNumber(1);
+                                setSelected(a.idCategory);
+                                handleUrlRequest(a.strCategory)}}>
                                 <div className= {`image-container${selected === a.idCategory ? " selected" : ""}`}/>
                                 <span>{a.strCategory}</span>
                         </li>

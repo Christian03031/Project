@@ -1,15 +1,50 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./dish.css";
 
 import { useBasket, useDispatch } from "../../contextBasket";
 
 
-export function Dishes({ dishes }) {
-    return <section className="dishes">
-        {
-            dishes.map(dish => <article key={dish.strId}><Dish infos={{ ...dish }} /></article>)
-        }
-    </section>
+export function Dishes({ dishes, page, handlePageNumber}) {
+
+    
+    const sectionRef = useRef(null);
+    console.log(page);
+
+    const length = dishes.length;
+    const dishesPerPage = 10;
+    const paginationLenght = length / dishesPerPage;
+
+    const currentStart = dishesPerPage * page - 1 + (page > 1 ? 1 : 0);
+    let dishRange = dishes.slice(currentStart, currentStart + dishesPerPage)
+
+    console.log(page);
+
+
+    return <>
+        <div className="main-container">
+            <section ref={sectionRef} className="dishes">
+                {
+                    dishRange.map(dish => <article key={dish.strId}><Dish infos={{ ...dish }} /></article>)
+                }
+
+
+            </section>
+            <ul className="pagination-container">
+                {Array.from({ length: paginationLenght }, (_, i) => i + 1).map((a, i) =>
+                    <li key={i} className = {page === i + 1? "selected" : ""} onClick={
+                        e => {
+                            console.log("page: ", page)
+                            console.log(i)
+                            handlePageNumber(a);
+
+                            sectionRef.current.scrollIntoView({ top: "10px", behavior: 'smooth' });
+                        }}>{a}</li>)}
+            </ul>
+        </div>
+
+
+    </>
+
 
 
 }
