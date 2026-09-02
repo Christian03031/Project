@@ -1,19 +1,16 @@
 import "./navbar.css"
 import { Search, ShoppingBasket, User } from 'lucide-react'
-
+import { NavLink } from "react-router"
 
 import { useBasket } from "../contextBasket"
 
 
-
-export function Basket({ color, size, strokeWidth = 3, hasItems}) {
+export function BasketIcon({ color, size, strokeWidth = 3, hasItems}) {
     return <>
         <ShoppingBasket />
         {hasItems > 0 && <span className="notification-dot">{hasItems}</span>}
     </>
 }
-
-
 
 export default function NavBar() {
 
@@ -26,10 +23,10 @@ export default function NavBar() {
         </div>
         <div className="nav-link">
             <ul>
-                <li>Home</li>
-                <li>Menu</li>
-                <li>Basket</li>
-                <li>Contact us</li>
+                <NavLink to="/home">Home</NavLink>
+                <NavLink to="/menu">Menu</NavLink>
+                <NavLink to="/basket">Basket</NavLink>
+                <NavLink to="/contacts">Contact us</NavLink>
             </ul>
         </div>
         <div className="data">
@@ -37,7 +34,9 @@ export default function NavBar() {
                 <Search />
             </div>
             <div className="basket">
-                <Basket hasItems={basket.length} />
+                <NavLink to="/basket">
+                    <BasketIcon hasItems={basket.length} />
+            </NavLink>
 
             </div>
             <div className="user">

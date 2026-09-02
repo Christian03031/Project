@@ -5,28 +5,40 @@ import { useBasket, useDispatch } from "../../contextBasket";
 
 
 function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef }) {
-    
+
     const paginatorRef = useRef(null);
-    
-    
+    const selectedPageRef = useRef(null);
+
+
     useEffect(() => {
-        
+        selectedPageRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "center"
+        });
+    }, [page]);
+
+    useEffect(() => {
+
         let container = paginatorRef.current
         let timer = null;
 
+
+        // const width = container.firstElementChild.getBoundingClientRect().width;
+
         const handleWheel = (event) => {
             event.preventDefault();
-
+            const width = container.firstElementChild.getBoundingClientRect().width;
             if (timer) {
                 return;
             }
 
-            container.scrollLeft += 2 * event.deltaY
+            container.scrollLeft += Math.sign(event.deltaY) * (width + 19.5)
 
-            timer = setTimeout(() => {timer = null}, 100);
+            timer = setTimeout(() => { timer = null }, 100);
         }
 
-        container.addEventListener("wheel", handleWheel, {passive: false})
+        container.addEventListener("wheel", handleWheel, { passive: false })
 
         return () => {
             container.removeEventListener("wheel", handleWheel)
@@ -36,14 +48,16 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef }) 
 
     return <ul ref={paginatorRef} className="pagination-container">
         {Array.from({ length: paginationLenght }, (_, i) => i + 1).map((a, i) =>
-            <li key={i} className={page === i + 1 ? "selected" : ""} onClick={
-                e => {
-                    console.log("page: ", page)
-                    console.log(i)
-                    handlePageNumber(a);
+            <li key={i} className={page === i + 1 ? "selected" : ""}
+                ref={page === i + 1 ? selectedPageRef : null}
+                onClick={
+                    e => {
+                        console.log("page: ", page)
+                        console.log(i)
+                        handlePageNumber(a);
 
-                    sectionRef.current.scrollIntoView({ top: "10px", behavior: 'smooth' });
-                }}>{a}</li>)}
+                        sectionRef.current.scrollIntoView({ top: "10px", behavior: 'smooth' });
+                    }}>{a}</li>)}
     </ul>
 
 }
@@ -51,7 +65,6 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef }) 
 export function Dishes({ dishes, page, handlePageNumber }) {
 
     const length = dishes.length;
-    console.log("dishes length: ", dishes.length)
     const dishesPerPage = 10;
     const sectionRef = useRef(null);
     const paginationLenght = length > 10 ? length / dishesPerPage : length;

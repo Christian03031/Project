@@ -20,16 +20,16 @@
     text-align: center;
     align-items: center;
     gap: 2em;
+    transition: all .1s linear;
+    text-underline-offset: 0.5em;
 
-
-    & li {
+    & a {
         transition: all .1s linear;
 
         &:hover {
             transform: scale(1.1);
             cursor: pointer;
             text-decoration: underline;
-            text-underline-offset: 0.5em;
         }
     }
 }
@@ -53,17 +53,18 @@
     }
 }
 
-.sign-in{
+.sign-in {
     padding: 1em 2em;
     border-radius: 25px;
     border: 1px solid rgba(70, 68, 68, 0.466);
     cursor: pointer;
 }
 
-.basket{
+.basket {
     position: relative;
 }
-.notification-dot{
+
+.notification-dot {
     color: white;
     background-color: red;
     display: flex;

@@ -184,14 +184,22 @@
     & .pagination-container {
         display: flex;
         flex-direction: row;
+        border: 1px solid grey;
+        border-radius: 50px;
         list-style-type: none;
-        width: 28%;
+        width: 20px;
         padding: 1em;
         overflow: hidden;
         font-size: 1.2em;
         align-self: center;
         gap: 1em;
         scroll-behavior: smooth;
+        transition: all .3s linear;
+
+        &:hover{
+            width: 15vw;
+            cursor: pointer;
+        }
 
         & li {
             padding: 5px 20px;
