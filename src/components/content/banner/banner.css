@@ -34,7 +34,6 @@
 
     & > * {
         color: wheat;
-        font-family: "Source Code Pro";
 
     }
 
@@ -45,7 +44,6 @@
     & p {
         font-size: 1em;
         font-weight: 1000;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
         line-height: 1.8em;
     }
 

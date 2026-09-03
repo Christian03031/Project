@@ -6,6 +6,7 @@ const dispatchContext = createContext(null);
 function basketReducer(basketContent, action){
     switch(action.type){
         case 'ADD_TO_BASKET': {
+            if([...basketContent.filter(a => a.id === action.payload.id)].length0) return [...basketContent.filter(a => a.id !== action.payload.id), {...action.payload, quantity: action.payload.quantity + 1}]
             return [...basketContent, {...action.payload}]
         };
 

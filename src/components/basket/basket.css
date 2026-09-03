@@ -1,38 +1,126 @@
-
-
 .basket-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: min(1200px, 90%);
     margin: 4em 0;
-    
+    gap: 5em;
+
     & table {
-        
         width: 100%;
-        text-align: center;
+        justify-content: center;
+        table-layout: fixed;
         border-collapse: collapse;
+
+        & .dish-col {
+            width: 30%;
+        }
 
         & tr {
             border-bottom: 1px solid grey;
-            
+
             & td {
-                padding: 1em 0;
+                padding: 0.5em 0;
             }
         }
-        
-        padding: 4em;
+
         & thead tr td {
             text-align: center;
         }
 
         & tbody {
+
             & tr {
                 border-bottom: 1px solid grey;
-                
+
+                & td {
+                    text-align: center;
+                }
+
+                & div {
+                    display: inline-flex;
+                    width: 100%;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 1em;
+
+                    & img {
+                        width: 2em;
+                        aspect-ratio: 1;
+                    }
+
+                    & span {
+                        width: 100%;
+                        overflow-wrap: break-word;
+                    }
+
+
+                }
             }
         }
 
-
     }
+}
+
+.total-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: start;
+    gap: 5em;
+
+    & .receipt {
+        width: 50%;
+    }
+}
+
+.promocode {
+
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: .5em;
+
+    & * {
+        border: none;
+        border-radius: 10px;
+    }
+
+    & .input-container {
+        width: 100%;
+
+        border: none;
+        position: relative;
+
+        & input {
+            width: 100%;
+            padding: 0 1em;
+            height: 2em;
+            background-color: rgb(211, 211, 211);
+            color: rgb(92, 92, 92);
+            ;
+        }
+
+        & button {
+            border-radius: 5px;
+            position: absolute;
+            height: 2em;
+            color: white;
+            background-color: black;
+            border: 1px solid black;
+            width: 30%;
+            right: 0;
+            bottom: 0;
+        }
+    }
+}
+
+.checkout{
+    background-color: rgb(255, 94, 0);
+    border: none;
+    color: white;
+    padding: .7em 1.5em;
+    border-radius: 5px;
+    font-size:.7em;
 }
