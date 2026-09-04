@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import "./dish.css";
 
-import { useBasket, useDispatch } from "../../contextBasket";
+import { useDispatch } from "../../../context/contextBasket";
+import Rating from "../../items/rating/Rating";
 
-
-function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef }) {
+function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, maxPagesPerView = 3 }) {
 
     const paginatorRef = useRef(null);
     const selectedPageRef = useRef(null);
-
+    
+    const [view, setView] = useState(0);
 
     useEffect(() => {
         selectedPageRef.current?.scrollIntoView({
@@ -16,7 +17,7 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef }) 
             block: "center",
             inline: "center"
         });
-    }, [page]);
+    }, []);
 
     useEffect(() => {
 
@@ -44,17 +45,24 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef }) 
     }, [])
 
     return <ul ref={paginatorRef} className="pagination-container">
-        {Array.from({ length: paginationLenght }, (_, i) => i + 1).map((a, i) =>
-            <li key={i} className={page === i + 1 ? "selected" : ""}
-                ref={page === i + 1 ? selectedPageRef : null}
+        {view > 0 && 
+        <li
+            onClick={e => { setView(a => a - maxPagesPerView) }}>&lt;
+        </li>
+        }
+        {Array.from({ length: paginationLenght }, (_, i) => i + 1).slice(view, view + maxPagesPerView).map((a, i) =>
+            <li key={i} className={page === a ? "selected" : ""}
+                ref={page === a ? selectedPageRef : null}
                 onClick={
                     e => {
-                        console.log("page: ", page)
-                        console.log(i)
                         handlePageNumber(a);
-
                         sectionRef.current.scrollIntoView({ top: "10px", behavior: 'smooth' });
                     }}>{a}</li>)}
+        {view < paginationLenght / maxPagesPerView &&
+            <li
+                onClick={e => { setView(a => a + maxPagesPerView) }}>&gt;</li>}
+
+
     </ul>
 
 }
@@ -99,7 +107,7 @@ export function Dish({ infos }) {
         <div className="dish-description">
             <div className="dish-info">
                 <div className="dish-name">{infos.strMeal}</div>
-                <div className="dish-rating">5 stars</div>
+                <div className="dish-rating"><Rating rate={5} /></div>
             </div>
             <div className="dish-description-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet architecto aspernatur aperiam vero nihil </div>
             <div className="dish-price">15$</div>
@@ -115,19 +123,19 @@ export function AddDish({ infos }) {
     return (value !== 0 && <div className="qty-container">
         <span className="rem" onClick={e => {
             setValue(value => value - 1 <= 0 ? 0 : value - 1)
-            dispatch({ type: (value > 1) ? 'REMOVE_DUPLICATE_BASKET' : 'REMOVE_FROM_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value - 1, price: 15, img: infos.strMealThumb} })
+            dispatch({ type: (value > 1) ? 'REMOVE_DUPLICATE_BASKET' : 'REMOVE_FROM_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value - 1, price: 15, img: infos.strMealThumb } })
         }}>-</span>
 
         <span>{value === 0 ? "" : value}</span>
 
         <span className="add" onClick={e => {
             setValue(value => value + 1 >= 10 ? 10 : value + 1);
-            dispatch({ type: 'DUPLICATE_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value + 1, price: 15, img: infos.strMealThumb} });
+            dispatch({ type: 'DUPLICATE_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value + 1, price: 15, img: infos.strMealThumb } });
         }}
             onSelect={e => { e.preventDefault() }}>+</span>
     </div> || <button className="btn-add" onClick={(e) => {
         setValue(value => value + 1);
-        dispatch({ type: 'ADD_TO_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value + 1, price: 15, img: infos.strMealThumb} });
+        dispatch({ type: 'ADD_TO_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value + 1, price: 15, img: infos.strMealThumb } });
     }}><span>+</span></button>)
 
 

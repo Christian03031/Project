@@ -2,7 +2,7 @@ import "./navbar.css"
 import { Search, ShoppingBasket, User } from 'lucide-react'
 import { NavLink } from "react-router"
 
-import { useBasket } from "../contextBasket"
+import { useBasket } from "../../context/contextBasket"
 
 
 export function BasketIcon({ color, size, strokeWidth = 3, hasItems}) {

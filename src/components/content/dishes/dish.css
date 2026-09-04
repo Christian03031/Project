@@ -182,11 +182,11 @@
 
     & .pagination-container {
         display: flex;
+        interpolate-size: allow-keywords;
         flex-direction: row;
         border: 1px solid grey;
         border-radius: 50px;
         list-style-type: none;
-        width: 20px;
         padding: 1em;
         overflow: hidden;
         font-size: 1.2em;
@@ -196,7 +196,6 @@
         transition: all .3s linear;
 
         &:hover{
-            width: 15vw;
             cursor: pointer;
         }
 
@@ -218,4 +217,8 @@
         }
     }
 
+}
+
+.rating span{
+    color: rgb(255, 187, 0);
 }

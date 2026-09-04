@@ -1,4 +1,4 @@
-import { useBasket } from "../contextBasket"
+import { useBasket } from "../../context/contextBasket";
 import "./basket.css"
 
 export function Basket() {

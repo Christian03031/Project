@@ -1,13 +1,13 @@
-import { Fragment, useEffect, useRef, useState } from "react"
-import NavBar, { BasketIcon } from "./components/navbar/NavBar"
+import { useEffect, useState } from "react"
+import NavBar from "./components/navbar/NavBar"
 import Banner from "./components/content/banner/Banner"
 import Filter from "./components/content/filter/Filter"
 import { Dishes } from "./components/content/dishes/Dishes"
 
 import { Basket } from "./components/basket/Basket"
 
-import { createBrowserRouter, RouterProvider, Outlet, useParams } from "react-router"
-import { BasketProvider } from "./components/contextBasket"
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router"
+import { BasketProvider } from "./context/contextBasket"
 
 import backgroundImage from "./assets/images/banner.webp"
 import "./main.css"
