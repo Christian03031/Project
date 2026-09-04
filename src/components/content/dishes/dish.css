@@ -187,9 +187,10 @@
         border: 1px solid grey;
         border-radius: 50px;
         list-style-type: none;
-        padding: 1em;
+        padding: .5em;
+        width: 2.5em;
         overflow: hidden;
-        font-size: 1.2em;
+        font-size: 1em;
         align-self: center;
         gap: 1em;
         scroll-behavior: smooth;
@@ -197,12 +198,14 @@
 
         &:hover{
             cursor: pointer;
+            width: fit-content;
         }
 
         & li {
-            padding: 5px 20px;
+            padding: .2em .5em;
             border: 1px solid rgba(128, 128, 128, 0.7);
-            border-radius: 25px;
+            border-radius: 60px;
+            font-size: .8em;
             transition: all .1s linear;
 
             &:hover{

@@ -39,6 +39,11 @@ const router = createBrowserRouter([
         path: '/contacts',
         element: <h1>Contact Us</h1>
       },
+
+      {
+        path: 'order',
+        element: <h1>Order</h1>
+      }
     ]
   }
 ]);

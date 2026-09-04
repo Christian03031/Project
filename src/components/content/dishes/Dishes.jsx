@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./dish.css";
 
-import { useDispatch } from "../../../context/contextBasket";
+import { useBasket, useDispatch } from "../../../context/contextBasket";
 import Rating from "../../items/rating/Rating";
 
 function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, maxPagesPerView = 3 }) {
@@ -76,8 +76,6 @@ export function Dishes({ dishes, page, handlePageNumber }) {
     const currentStart = length > 10 ? dishesPerPage * page - 1 + (page > 1 ? 1 : 0) : 0;
     let dishRange = dishes.slice(currentStart, currentStart + 10);
 
-    console.log("dish range: ", dishRange)
-
     return <>
         <div className="main-container">
             <section ref={sectionRef} className="dishes">
@@ -118,23 +116,21 @@ export function Dish({ infos }) {
 export function AddDish({ infos }) {
 
     const dispatch = useDispatch();
-    const [value, setValue] = useState(0);
+    const basket = useBasket();
+    const value = basket.filter(a => a.id === infos.idMeal)[0]?.quantity ?? 0;
 
     return (value !== 0 && <div className="qty-container">
         <span className="rem" onClick={e => {
-            setValue(value => value - 1 <= 0 ? 0 : value - 1)
-            dispatch({ type: (value > 1) ? 'REMOVE_DUPLICATE_BASKET' : 'REMOVE_FROM_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value - 1, price: 15, img: infos.strMealThumb } })
+            dispatch({ type: (value > 1) ? 'REMOVE_DUPLICATE_BASKET' : 'REMOVE_FROM_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: (value - 1) < 0 ? 0 : value - 1, price: 15, img: infos.strMealThumb } })
         }}>-</span>
 
         <span>{value === 0 ? "" : value}</span>
 
         <span className="add" onClick={e => {
-            setValue(value => value + 1 >= 10 ? 10 : value + 1);
-            dispatch({ type: 'DUPLICATE_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value + 1, price: 15, img: infos.strMealThumb } });
+            dispatch({ type: 'DUPLICATE_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value, price: 15, img: infos.strMealThumb } });
         }}
             onSelect={e => { e.preventDefault() }}>+</span>
     </div> || <button className="btn-add" onClick={(e) => {
-        setValue(value => value + 1);
         dispatch({ type: 'ADD_TO_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value + 1, price: 15, img: infos.strMealThumb } });
     }}><span>+</span></button>)
 
