@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
 import { useBasket, useDispatch } from "../../context/contextBasket";
-
 import "./basket.css"
 
 export function Basket() {
@@ -8,8 +7,9 @@ export function Basket() {
     const basket = useBasket();
     const dispatch = useDispatch();
     const total = basket.reduce((acc, value) => acc + value.quantity * value.price, 0);
+    
     const navigate = useNavigate();
-
+    
     return basket.length > 0 && <div className="basket-container">
         <table className="basket-table">
             <colgroup>

@@ -1,4 +1,4 @@
-import { useReducer, useContext, createContext } from "react";
+import { useReducer, useContext, createContext, useEffect } from "react";
 
 const basketContext = createContext(null);
 const dispatchContext = createContext(null);
@@ -6,7 +6,7 @@ const dispatchContext = createContext(null);
 function basketReducer(basketContent, action){
     switch(action.type){
         case 'ADD_TO_BASKET': {
-            if([...basketContent.filter(a => a.id === action.payload.id)].length0) return [...basketContent.filter(a => a.id !== action.payload.id), {...action.payload, quantity: action.payload.quantity + 1}]
+            if([...basketContent.filter(a => a.id === action.payload.id)].length) return [...basketContent.filter(a => a.id !== action.payload.id), {...action.payload, quantity: action.payload.quantity + 1}]
             return [...basketContent, {...action.payload}]
         };
 
@@ -29,10 +29,20 @@ export function useDispatch(){
     return useContext(dispatchContext);
 }
  
+
+const restoreBasket = (initial = []) => {
+    const saved = localStorage.getItem("basketState");
+    return saved ? JSON.parse(saved) : initial; 
+}
+
 export function BasketProvider({ children }){
     
-    const [basket, dispatch] = useReducer(basketReducer, initialBasketState)
+    const [basket, dispatch] = useReducer(basketReducer, initialBasketState, restoreBasket)
     
+    useEffect(() => {
+        localStorage.setItem("basketState", JSON.stringify(basket));
+    }, [basket])
+
     return (<basketContext.Provider value = {basket}>
         <dispatchContext.Provider value = {dispatch}>
             {children}
