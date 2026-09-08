@@ -7,9 +7,10 @@ export function Basket() {
     const basket = useBasket();
     const dispatch = useDispatch();
     const total = basket.reduce((acc, value) => acc + value.quantity * value.price, 0);
-    
+    const deliveryFee = 5;
+
     const navigate = useNavigate();
-    
+
     return basket.length > 0 && <div className="basket-container">
         <table className="basket-table">
             <colgroup>
@@ -36,12 +37,27 @@ export function Basket() {
                     basket.map(a => <tr key={a.id}>
                         <td><div><img src={a.img} alt="dish-img" /><span>{a.name}</span></div></td>
                         <td>{a.price}$</td>
-                        <td>{a.quantity}</td>
+                        <td>
+                            {a.quantity > 1 && <button className="action minus" onClick={
+                                e => {
+                                    dispatch({ type: 'REMOVE_DUPLICATE_BASKET', payload: { ...a } });
+                                }}>-</button>}
+                            {a.quantity}
+                            <button className="action add" onClick={
+                                e => {
+                                    dispatch({ type: 'DUPLICATE_BASKET', payload: { ...a } });
+                                }}>+</button></td>
                         <td>{a.price * a.quantity}$</td>
-                        <td><button className="delete" onClick={
+                        <td style={{
+                            flexDirection: "row",
+                            alignItems: "end",
+                            justifyContent: "center",
+                        }}><button className="action delete" onClick={
                             e => {
-                                dispatch({ type: 'REMOVE_FROM_BASKET', payload: {...a} });
-                            }}>X</button></td></tr>)
+                                dispatch({ type: 'REMOVE_FROM_BASKET', payload: { ...a } });
+                            }}>x</button>
+
+                        </td></tr>)
                 }
             </tbody>
         </table>
@@ -51,13 +67,13 @@ export function Basket() {
                 <h2>Card Totals</h2>
                 <table className="receipt-table">
                     <tbody>
-                        <tr><td>Subtotal</td><td>{total}</td></tr>
-                        <tr><td>Delivery Fee</td><td>5</td></tr>
-                        <tr><td>Total</td><td>{total + 5}</td></tr>
+                        <tr><td>Subtotal</td><td>{total}$</td></tr>
+                        <tr><td>Delivery Fee</td><td>{deliveryFee}$</td></tr>
+                        <tr><td>Total</td><td>{total + deliveryFee}$</td></tr>
                     </tbody>
                 </table>
-                
-                <button className="checkout" onClick={() => {navigate("/order")}}>PROCEED TO CHECKOUT</button>
+
+                <button className="checkout" onClick={() => { navigate("/order") }}>PROCEED TO CHECKOUT</button>
             </div>
             <div className="promocode">
                 <span>If you have a promocode, enter it here</span>

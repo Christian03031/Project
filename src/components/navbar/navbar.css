@@ -7,8 +7,8 @@
     justify-content: space-around;
     box-shadow: 0 1px 25px rgb(206, 179, 179);
     font-optical-sizing: auto;
-    font-weight: 800;
-    font-style: normal;
+    /* font-weight: 800; */
+    /* font-style: normal; */
 }
 
 .nav-link ul {
@@ -17,6 +17,7 @@
     flex-direction: row;
     list-style-type: none;
     text-align: center;
+    justify-content: center;
     align-items: center;
     gap: 2em;
     transition: all .1s linear;
@@ -53,9 +54,10 @@
 }
 
 .sign-in {
-    padding: 1em 2em;
+    padding: .5em 1em;
     border-radius: 25px;
-    border: 1px solid rgba(70, 68, 68, 0.466);
+    background-color:  rgba(230, 154, 13, 0.466);
+    border: 1px solid rgba(230, 154, 13, 0.466);
     cursor: pointer;
 }
 

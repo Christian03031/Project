@@ -11,12 +11,12 @@ function basketReducer(basketContent, action){
         };
 
         case 'DUPLICATE_BASKET': {
-            return [...basketContent.filter(a => a.id !== action.payload.id), {...action.payload, quantity: action.payload.quantity + 1}]
+            return [...basketContent.map(a => a.id === action.payload.id ? {...a, quantity: a.quantity + 1} : a)]
         }
 
         case 'REMOVE_FROM_BASKET': return [...basketContent.filter(a => a.id != action.payload.id)];
 
-        case 'REMOVE_DUPLICATE_BASKET': return  [...basketContent.filter(a => a.id !== action.payload.id), {...action.payload, quantity: action.payload.quantity - 1}];
+        case 'REMOVE_DUPLICATE_BASKET': return  [...basketContent.map(a => a.id === action.payload.id ? {...a, quantity: a.quantity - 1} : a)];
         default: return basketContent;
     }
 }

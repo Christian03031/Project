@@ -19,6 +19,10 @@
         & tr {
             border-bottom: 1px solid grey;
 
+            & td:nth-of-type(1) {
+                text-align: left;
+            }
+
             & td {
                 padding: 0.5em 0;
             }
@@ -62,12 +66,12 @@
     }
 }
 
-.delete{
+.delete {
     background-color: transparent;
     border: none;
     transition: all .1s linear;
 
-    &:hover{
+    &:hover {
         transform: scale(1.1);
         color: red;
         cursor: pointer;
@@ -89,16 +93,16 @@
         gap: 1em;
         width: 50%;
 
-        & h2{
+        & h2 {
             color: black;
         }
 
-        & table tr{
+        & table tr {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
 
-            &:nth-last-child(1) td{
+            &:nth-last-child(1) td {
                 color: black;
                 font-weight: bold;
             }
@@ -113,7 +117,7 @@
             font-size: 1em;
             transition: all .1s linear;
 
-            &:hover{
+            &:hover {
                 cursor: pointer;
                 transform: scale(1.02);
             }
@@ -163,5 +167,26 @@
             right: 0;
             bottom: 0;
         }
+    }
+}
+
+.action {
+    font-size: 1.1em;
+    margin: 0 .5em;
+
+    background-color: transparent;
+    border: none;
+    transition: all .1s linear;
+
+    &.minus:hover {
+        transform: scale(1.1);
+        color: red;
+        cursor: pointer;
+    }
+
+    &.add:hover {
+        transform: scale(1.1);
+        color: green;
+        cursor: pointer;
     }
 }
