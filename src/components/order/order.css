@@ -1,0 +1,10 @@
+main{
+    width: min(1200px, 90%);
+    display: flex;
+
+}
+
+.order-container{
+    display: flex;
+    flex-direction: row;
+}

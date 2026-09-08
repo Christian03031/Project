@@ -3,7 +3,7 @@ import NavBar from "./components/navbar/NavBar"
 import Banner from "./components/content/banner/Banner"
 import Filter from "./components/content/filter/Filter"
 import { Dishes } from "./components/content/dishes/Dishes"
-
+import  Order from "./components/order/Order"
 import { Basket } from "./components/basket/Basket"
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router"
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
 
       {
         path: 'order',
-        element: <h1>Order</h1>
+        element: <Order/>
       }
     ]
   }
