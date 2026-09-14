@@ -3,18 +3,6 @@ import { useBasket, useDispatch } from "../../context/contextBasket";
 import "./basket.css"
 
 
-export function Fees(props) {
-    return <div className="receipt">
-        <h2>Card Totals</h2>
-        <table className="receipt-table">
-            <tbody>
-                <tr><td>Subtotal</td><td>{props.params.total}$</td></tr>
-                <tr><td>Delivery Fee</td><td>{props.params.deliveryFee}$</td></tr>
-                <tr><td>Total</td><td>{props.params.total + props.params.deliveryFee}$</td></tr>
-            </tbody>
-        </table>
-    </div>
-}
 
 
 export function Basket() {

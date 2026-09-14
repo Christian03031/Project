@@ -86,45 +86,6 @@
     align-self: start;
     gap: 5em;
 
-    & .receipt {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1em;
-        width: 50%;
-
-        & h2 {
-            color: black;
-        }
-
-        & table tr {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-
-            &:nth-last-child(1) td {
-                color: black;
-                font-weight: bold;
-            }
-        }
-
-        & .checkout {
-            background-color: rgb(255, 94, 0);
-            border: none;
-            color: white;
-            padding: .7em 1.5em;
-            border-radius: 5px;
-            font-size: 1em;
-            transition: all .1s linear;
-
-            &:hover {
-                cursor: pointer;
-                transform: scale(1.02);
-            }
-        }
-    }
-
-
 }
 
 .promocode {
@@ -141,11 +102,8 @@
 
     & .input-container {
         width: 100%;
-
         border: none;
         position: relative;
-
-
 
         & input {
             width: 100%;
@@ -188,5 +146,44 @@
         transform: scale(1.1);
         color: green;
         cursor: pointer;
+    }
+}
+
+.receipt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+    width: 50%;
+
+    & h2 {
+        color: black;
+    }
+
+    & table tr {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom: 1px solid grey;
+
+        &:nth-last-child(1) td {
+            color: black;
+            font-weight: bold;
+        }
+    }
+
+    & .checkout {
+        background-color: rgb(255, 94, 0);
+        border: none;
+        color: white;
+        padding: .7em 1.5em;
+        border-radius: 5px;
+        font-size: 1em;
+        transition: all .1s linear;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.02);
+        }
     }
 }
