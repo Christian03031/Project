@@ -34,13 +34,23 @@ main {
                 flex-grow: 1;
                 padding: .5rem;
                 border-radius: .5rem;
+                color: black;
                 border: 1px solid grey;
-
+                font-family: Outfit;
+                font-size:medium;
                 transition: all .2s linear;
 
                 &:focus {
-                    /* transform: scale(1.01); */
-                    border-color: orange;
+                    background-color: aliceblue;
+                    outline: none;
+                    /* border: 1px solid transparent; */
+                }
+
+                &:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 1000px white inset;
+                    /* -webkit-text-fill-color: white; */
+                    /* border-color: #e60b0b; */
+
                 }
             }
 
@@ -63,17 +73,32 @@ main {
     /* gap: 5em; */
 }
 
-.total-container-order{
-    & .receipt{
+.total-container-order {
+    & .receipt {
         width: 100%;
         height: 100%;
-    
-        & table{
+
+        & table {
             width: 100%;
         }
 
-        & table tr td{
+        & table tr td {
             margin: .5em 0;
         }
+    }
+}
+
+.checkout {
+    background-color: rgb(255, 94, 0);
+    border: none;
+    color: white;
+    padding: .7em 1.5em;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: all .1s linear;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.02);
     }
 }

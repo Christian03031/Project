@@ -41,6 +41,7 @@ export function Basket() {
                         <td><div><img src={a.img} alt="dish-img" /><span>{a.name}</span></div></td>
                         <td>{a.price}$</td>
                         <td>
+                            {a.quantity === 1 && <span className="action minus"> </span>}
                             {a.quantity > 1 && <button className="action minus" onClick={
                                 e => {
                                     dispatch({ type: 'REMOVE_DUPLICATE_BASKET', payload: { ...a } });
