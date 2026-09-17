@@ -2,9 +2,6 @@ import { useNavigate } from "react-router";
 import { useBasket, useDispatch } from "../../context/contextBasket";
 import "./basket.css"
 
-
-
-
 export function Basket() {
 
     const basket = useBasket();

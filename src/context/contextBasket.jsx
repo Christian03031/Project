@@ -17,6 +17,9 @@ function basketReducer(basketContent, action){
         case 'REMOVE_FROM_BASKET': return [...basketContent.filter(a => a.id != action.payload.id)];
 
         case 'REMOVE_DUPLICATE_BASKET': return  [...basketContent.map(a => a.id === action.payload.id ? {...a, quantity: a.quantity - 1} : a)];
+
+        case 'FREE_BASKET': return [];
+        
         default: return basketContent;
     }
 }

@@ -26,7 +26,7 @@ export default function NavBar() {
                 <NavLink to="/home">Home</NavLink>
                 <NavLink to="/menu">Menu</NavLink>
                 <NavLink to="/basket">Basket</NavLink>
-                <NavLink to="/orders">Orders</NavLink>
+                <NavLink to="/orders-list">Orders</NavLink>
             </ul>
         </div>
         <div className="data">

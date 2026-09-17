@@ -11,6 +11,7 @@ import { BasketProvider } from "./context/contextBasket"
 
 import backgroundImage from "./assets/images/banner.webp"
 import "./main.css"
+import OrderList from "./components/orders-list/OrderList"
 
 const router = createBrowserRouter([
   {
@@ -36,8 +37,8 @@ const router = createBrowserRouter([
       },
 
       {
-        path: '/orders',
-        element: <h1>Orders</h1>
+        path: '/orders-list',
+        element: <OrderList/>
       },
 
       {
