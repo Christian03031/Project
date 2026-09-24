@@ -1,11 +1,11 @@
 import "./navbar.css"
-import { Search, ShoppingBasket, User } from 'lucide-react'
+import { Search, ShoppingBasket} from 'lucide-react'
 import { NavLink } from "react-router"
 
 import { useBasket } from "../../context/contextBasket"
 
 
-export function BasketIcon({ color, size, strokeWidth = 3, hasItems}) {
+export function BasketIcon({hasItems}) {
     return <>
         <ShoppingBasket />
         {hasItems > 0 && <span className="notification-dot">{hasItems}</span>}
@@ -15,7 +15,6 @@ export function BasketIcon({ color, size, strokeWidth = 3, hasItems}) {
 export default function NavBar() {
 
     const basket = useBasket();
-    console.log(basket.length);
 
     return <nav className="navbar">
         <div className="logo">
