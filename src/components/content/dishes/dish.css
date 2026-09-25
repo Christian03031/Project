@@ -193,6 +193,7 @@
         font-size: 1em;
         align-self: center;
         gap: 1em;
+        transform: scale(1.2);
         scroll-behavior: smooth;
         transition: all .3s linear;
 
