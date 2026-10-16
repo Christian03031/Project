@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import "./dish.css";
-
 import { useBasket, useDispatch } from "../../../context/contextBasket";
+import "./dish.css";
 import Rating from "../../items/rating/Rating";
 
 function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, maxPagesPerView = 3 }) {
 
     const paginatorRef = useRef(null);
     const selectedPageRef = useRef(null);
-    
     const [view, setView] = useState(0);
 
     useEffect(() => {
@@ -97,9 +95,10 @@ export function Dishes({ dishes, page, handlePageNumber }) {
 
 export function Dish({ infos }) {
 
-    return <div className="dish-card" style={{ "--bg-image-meal": `url(${infos.strMealThumb})` }}>
-
+    // style={{ "--bg-image-meal": `url(${infos.strMealThumb})` }}*/
+    return <div className="dish-card"> 
         <div className="dish-img">
+            <img src={infos.strMealThumb} alt={infos.strMeal} />
             <AddDish infos={infos} />
         </div>
         <div className="dish-description">
