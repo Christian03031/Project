@@ -13,9 +13,6 @@ export function Basket() {
 
     const navigate = useNavigate();
 
-
-
-
     return basket.length === 0 && <div className="basket-container-empty">
         <div className="label-empty">
             <FaceSlightlyFrowning size={32} />

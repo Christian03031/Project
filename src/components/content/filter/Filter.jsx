@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import "./filter.css"
 
-export default function Filter({ categories, handleUrlRequest, handlePageNumber}) {
+export default function Filter({ categories, handleUrlRequest, handlePageNumber, defaultCategory}) {
 
     const containerRef = useRef(null);
     const timeOutRef = useRef(null);
@@ -9,7 +9,7 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber}
     const [selected, setSelected] = useState(-1);
 
     useEffect(() => {
-        let   timer = null;
+        let timer = null;
         const container = containerRef.current;
         const handleWheel = (event) => {
 
@@ -19,7 +19,7 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber}
 
             container.scrollLeft += 3 * event.deltaY;
 
-            timer = setTimeout(() => { timer = null;}, 100)
+            timer = setTimeout(() => { timer = null; }, 100)
 
         }
 
@@ -44,15 +44,24 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber}
         <ul ref={containerRef}>
             {
                 categories.map(a => <li key={a.idCategory}
-                            style={{ "--bg-image": `url(${a.strCategoryThumb})`}}
-                            onClick={() => {
-                                handlePageNumber(1);
-                                setSelected(a.idCategory);
-                                handleUrlRequest(a.strCategory)}}>
-                                <div className= {`image-container${selected === a.idCategory ? " selected" : ""}`}/>
-                                <span>{a.strCategory}</span>
-                        </li>
-                        
+                    style={{ "--bg-image": `url(${a.strCategoryThumb})` }}
+                    onClick={() => {
+                        if (a.idCategory === selected) {
+                            handlePageNumber(1);
+                            setSelected(-1);
+                            handleUrlRequest(defaultCategory)
+                        }
+                        else {
+                            handlePageNumber(1);
+                            setSelected(a.idCategory);
+                            handleUrlRequest(a.strCategory)
+                        }
+
+                    }}>
+                    <div className={`image-container${selected === a.idCategory ? " selected" : ""}`} />
+                    <span>{a.strCategory}</span>
+                </li>
+
                 )
             }
         </ul>

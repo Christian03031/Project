@@ -43,10 +43,10 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
     }, [])
 
     return <ul ref={paginatorRef} className="pagination-container">
-        {view > 0 && 
-        <li
-            onClick={e => { setView(a => a - maxPagesPerView) }}>&lt;
-        </li>
+        {view > 0 &&
+            <li
+                onClick={e => { setView(a => a - maxPagesPerView) }}>&lt;
+            </li>
         }
         {Array.from({ length: paginationLenght }, (_, i) => i + 1).slice(view, view + maxPagesPerView).map((a, i) =>
             <li key={i} className={page === a ? "selected" : ""}
@@ -67,6 +67,9 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
 
 export function Dishes({ dishes, page, handlePageNumber }) {
 
+
+    const [modal, setModal] = useState({ state: false, infos: {} });
+
     const length = dishes.length;
     const dishesPerPage = 10;
     const sectionRef = useRef(null);
@@ -76,10 +79,11 @@ export function Dishes({ dishes, page, handlePageNumber }) {
 
     return <>
         <div className="main-container">
+            {modal.state === true && <Modal infos={{ ...modal.infos }} setModal={setModal} />}
             <section ref={sectionRef} className="dishes">
 
                 {
-                    dishRange.map(dish => <article key={dish.strId}><Dish infos={{ ...dish }} /></article>)
+                    dishRange.map(dish => <article key={dish.strId}><Dish infos={{ ...dish }} setModal={setModal} /></article>)
                 }
             </section>
 
@@ -93,17 +97,56 @@ export function Dishes({ dishes, page, handlePageNumber }) {
     </>
 }
 
-export function Dish({ infos }) {
 
-    // style={{ "--bg-image-meal": `url(${infos.strMealThumb})` }}*/
-    return <div className="dish-card"> 
+function Modal({ infos, setModal }) {
+
+    useEffect(() => {
+
+        const overflow = document.body.style.overflow;
+
+        document.body.style.overflow = "hidden";
+
+        return () => {
+            document.body.style.overflow = overflow;
+        }
+
+    }, [])
+
+    console.log(infos);
+
+    const dishNameLength = 15;
+    return <div className="modal-overlay" onClick={(e) => { console.log("exit the modal"); setModal((a) => { return { state: false, infos: infos } }) }}>
+        <div className="modal-dish" >
+            <div className="modal-dish-img">
+                <img src={infos.strMealThumb} alt={infos.strMeal} />
+                {/* <AddDish infos={infos} /> */}
+            </div>
+            <div className="dish-description">
+                <div className="dish-info">
+                    <div className="dish-name">{infos.strMeal.length > dishNameLength ? infos.strMeal.slice(0, dishNameLength).concat("...") : infos.strMeal}</div>
+                    <div className="dish-rating"><Rating rate={5} /></div>
+                </div>
+                <div className="dish-description-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet architecto aspernatur aperiam vero nihil </div>
+                <div className="dish-price">15$</div>
+            </div>
+        </div>
+    </div>
+
+}
+
+export function Dish({ infos, setModal }) {
+
+    const dishNameLength = 15;
+
+    return <div className="dish-card" onClick={(e) => { setModal((a) => { return { state: true, infos: infos } }) }}>
+
         <div className="dish-img">
             <img src={infos.strMealThumb} alt={infos.strMeal} />
             <AddDish infos={infos} />
         </div>
         <div className="dish-description">
             <div className="dish-info">
-                <div className="dish-name">{infos.strMeal}</div>
+                <div className="dish-name">{infos.strMeal.length > dishNameLength ? infos.strMeal.slice(0, dishNameLength).concat("...") : infos.strMeal}</div>
                 <div className="dish-rating"><Rating rate={5} /></div>
             </div>
             <div className="dish-description-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet architecto aspernatur aperiam vero nihil </div>

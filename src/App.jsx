@@ -3,7 +3,7 @@ import NavBar from "./components/navbar/NavBar"
 import Banner from "./components/content/banner/Banner"
 import Filter from "./components/content/filter/Filter"
 import { Dishes } from "./components/content/dishes/Dishes"
-import  Order from "./components/order/Order"
+import Order from "./components/order/Order"
 import { Basket } from "./components/basket/Basket"
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router"
@@ -38,12 +38,12 @@ const router = createBrowserRouter([
 
       {
         path: '/orders-list',
-        element: <OrderList/>
+        element: <OrderList />
       },
 
       {
         path: 'order',
-        element: <Order/>
+        element: <Order />
       }
     ]
   }
@@ -86,11 +86,9 @@ function MainPage() {
 
   }, [dishesURL]);
 
-  console.log(page);
-
   return <>
     <Banner backgroundImage={backgroundImage} />
-    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} />
+    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"}/>
     <Dishes dishes={dishes} page={page} handlePageNumber={setPage} />
   </>
 }
@@ -101,8 +99,6 @@ function Layout() {
     <Outlet />
   </BasketProvider>
 }
-
-
 
 function App() {
   return <RouterProvider router={router}></RouterProvider>
