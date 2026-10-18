@@ -1,9 +1,11 @@
 import { useState } from "react";
 import "./order-list.css"
-import { Package, Trash2 } from "lucide-react";
+import { Package, Trash2, FaceSlightlyFrowning} from "lucide-react";
+import { useNavigate } from "react-router";
 
 
-function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder}) {
+
+function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder }) {
     const total = infos.order.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
     const flag = infos.order.length > maxLengthShow;
     const slicedInfos = infos.order.length > maxLengthShow ? infos.order.slice(0, maxLengthShow) : infos.order;
@@ -40,30 +42,44 @@ function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder}) {
 
 export default function OrderList() {
 
+    const navigate = useNavigate();
+
     const [orders, setOrders] = useState(
         JSON.parse(localStorage.getItem("orders")) ?? []
     );
 
     function deleteOrder(index) {
         setOrders(a => {
-            
+
             const filtered = a.filter((_, i) => i !== index);
-        
+
             localStorage.setItem("orders", JSON.stringify(filtered));
 
             return filtered;
-            
+
         });
 
     }
 
 
-    return <ul className="container-order-list">
-        {
-            orders.map((order, i) => <li key={i} className="li-order">
-                <OrderComponent infos={order} index={i} deleteOrder={deleteOrder}/>
-            </li>)
-        }
+    return orders.length === 0 && <div className="basket-container-empty">
+        <div className="label-empty">
+            <FaceSlightlyFrowning size={32} />
+            <h1>Empty</h1>
+        </div>
+        <div className="label-content">
+            <p>There is no orders right now ! Try to check our menu and find something nice to eat</p>
+            <button onClick={() => { navigate("/menu") }}>To menu</button>
+        </div>
 
-    </ul>
+    </div> ||
+
+        <ul className="container-order-list">
+            {
+                orders.map((order, i) => <li key={i} className="li-order">
+                    <OrderComponent infos={order} index={i} deleteOrder={deleteOrder} />
+                </li>)
+            }
+
+        </ul>
 }
