@@ -3,9 +3,9 @@ import "./order-list.css"
 import { Package, Trash2, FaceSlightlyFrowning} from "lucide-react";
 import { useNavigate } from "react-router";
 
+import { Message } from "../items/rating/Message";
 
-
-function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder }) {
+function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder, setMessage}) {
     const total = infos.order.reduce((acc, cur) => acc + cur.price * cur.quantity, 0);
     const flag = infos.order.length > maxLengthShow;
     const slicedInfos = infos.order.length > maxLengthShow ? infos.order.slice(0, maxLengthShow) : infos.order;
@@ -32,7 +32,7 @@ function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder }) {
         <span>Items: {infos.order.length}</span>
         <span>Total: {total}$</span>
         <span className="status done">Status: Done</span>
-        <Trash2 className="delete" onClick={() => { deleteOrder(index) }} />
+        <Trash2 className="delete" onClick={() => { deleteOrder(index); setMessage(true); setTimeout(() => {setMessage(false)}, 3000)}} />
 
 
 
@@ -43,6 +43,7 @@ function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder }) {
 export default function OrderList() {
 
     const navigate = useNavigate();
+    const [message, setMessage] = useState(false);
 
     const [orders, setOrders] = useState(
         JSON.parse(localStorage.getItem("orders")) ?? []
@@ -75,9 +76,10 @@ export default function OrderList() {
     </div> ||
 
         <ul className="container-order-list">
+            {message && <Message type={"success"} title={"Success"} content = {"Order deleted sucessfully !"} style={{top: "80px", right: "80px"}}/>}
             {
                 orders.map((order, i) => <li key={i} className="li-order">
-                    <OrderComponent infos={order} index={i} deleteOrder={deleteOrder} />
+                    <OrderComponent infos={order} index={i} deleteOrder={deleteOrder} setMessage={setMessage}/>
                 </li>)
             }
 

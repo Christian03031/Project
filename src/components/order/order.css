@@ -13,6 +13,7 @@ main {
     flex-direction: row;
     padding-top: 10%;
     gap: 10%;
+    position: relative;
 
     &>* {
         flex: 1;

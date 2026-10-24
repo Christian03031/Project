@@ -3,6 +3,8 @@ import "./order.css"
 import "../basket/basket.css"
 import { useBasket, useDispatch } from "../../context/contextBasket";
 
+import { Message } from "../items/rating/Message";
+
 function handleOrders(order, infos, dispath) {
     let currentOrders = localStorage.getItem("orders");
     let data = JSON.parse(currentOrders) ?? [];
@@ -12,13 +14,15 @@ function handleOrders(order, infos, dispath) {
     localStorage.setItem("orders", JSON.stringify(data));
     
     dispath({type: 'FREE_BASKET'});
+
 }
 
 
-function Fees({params, infos}) {
+function Fees({params, infos, flag}) {
     
     const dispath = useDispatch();
     const basket = useBasket();
+    
     return <div className="total-container-order">
         <div className="receipt">
             <h2>Card Totals</h2>
@@ -29,7 +33,7 @@ function Fees({params, infos}) {
                     <tr><td>Total</td><td>{params.total + params.deliveryFee}$</td></tr>
                 </tbody>
             </table>
-            <button className="checkout" onClick={(e) => { handleOrders(basket, infos, dispath) }}>ORDER NOW</button>
+            <button className="checkout" onClick={(e) => { handleOrders(basket, infos, dispath); flag(true);}}>ORDER NOW</button>
         </div>
 
     </div>
@@ -59,6 +63,8 @@ function OrderForm({infos, phoneFormatter, handlePhoneNumber, handleSubmit, setI
 }
 
 export default function Order() {
+
+    const [message, setMessage] = useState(false);
 
     const basket = useBasket();
 
@@ -108,7 +114,8 @@ export default function Order() {
 
 
     return <div className="order-container">
-        <OrderForm infos = {infos} phoneFormatter={phoneFormatter} handlePhoneNumber={handlePhoneNumber} handleSubmit={handleSubmit} setInfos={setInfos}/>
-        <Fees params={{ total: total, deliveryFee: 15 }} infos={infos} />
+        {message && <Message type={"success"} title={"Success"} content = {"Order make sucessfully !"}/>}
+        {!message && <OrderForm infos = {infos} phoneFormatter={phoneFormatter} handlePhoneNumber={handlePhoneNumber} handleSubmit={handleSubmit} setInfos={setInfos}/>}
+        {!message && <Fees params={{ total: total, deliveryFee: 15 }} infos={infos} flag={setMessage} />}
     </div>
 }

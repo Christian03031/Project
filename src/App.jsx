@@ -26,14 +26,10 @@ const router = createBrowserRouter([
         path: '/basket',
         element: <Basket />
       },
-      {
-        path: '/dish/:id',
-        element: <h1>Dish {0}</h1>
-      },
 
       {
         path: '/home',
-        element: <h1>Home</h1>
+        element: <Banner backgroundImage={backgroundImage} />
       },
 
       {
@@ -53,6 +49,7 @@ const router = createBrowserRouter([
 function MainPage() {
   const URL_CATEGORIES = 'https://www.themealdb.com/api/json/v1/1/categories.php';
   const LATEST_MEALS = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+  const meal = (id) => `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
 
   const [categories, setCategories] = useState([]);
   const [dishes, setDishes] = useState([]);
@@ -87,9 +84,8 @@ function MainPage() {
   }, [dishesURL]);
 
   return <>
-    <Banner backgroundImage={backgroundImage} />
     <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"}/>
-    <Dishes dishes={dishes} page={page} handlePageNumber={setPage} />
+    <Dishes dishes={dishes} page={page} handlePageNumber={setPage} meal = {meal}/>
   </>
 }
 

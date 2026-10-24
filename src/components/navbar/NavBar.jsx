@@ -18,7 +18,7 @@ export default function NavBar() {
 
     return <nav className="navbar">
         <div className="logo">
-            <img src="/favicon.svg" alt="logo-image" />
+            <img src="/logo.svg" alt="logo-image" />
         </div>
         <div className="nav-link">
             <ul>
@@ -29,17 +29,11 @@ export default function NavBar() {
             </ul>
         </div>
         <div className="data">
-            <div className="search">
-                <Search />
-            </div>
             <div className="basket">
                 <NavLink to="/basket">
                     <BasketIcon hasItems={basket.length} />
             </NavLink>
 
-            </div>
-            <div className="user">
-                <button className="sign-in">Sign in</button>
             </div>
         </div>
     </nav>

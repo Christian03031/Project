@@ -65,7 +65,7 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
 
 }
 
-export function Dishes({ dishes, page, handlePageNumber }) {
+export function Dishes({ dishes, page, handlePageNumber, meal }) {
 
 
     const [modal, setModal] = useState({ state: false, infos: {} });
@@ -79,7 +79,7 @@ export function Dishes({ dishes, page, handlePageNumber }) {
 
     return <>
         <div className="main-container">
-            {modal.state === true && <Modal infos={{ ...modal.infos }} setModal={setModal} />}
+            {modal.state === true && <Modal infos={{ ...modal.infos }} setModal={setModal} meal={meal} />}
             <section ref={sectionRef} className="dishes">
 
                 {
@@ -98,7 +98,22 @@ export function Dishes({ dishes, page, handlePageNumber }) {
 }
 
 
-function Modal({ infos, setModal }) {
+function Modal({ infos, setModal, meal }) {
+
+    const [data, setData] = useState();
+
+    useEffect(() => {
+        const fetch_meal = async () => {
+            const response = await fetch(meal(infos.idMeal));
+            const json = await response.json();
+
+            setData(json.meals[0]);
+        }
+
+        fetch_meal();
+        console.log(data);
+
+    }, [])
 
     useEffect(() => {
 
@@ -112,23 +127,69 @@ function Modal({ infos, setModal }) {
 
     }, [])
 
-    console.log(infos);
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                setModal({ state: false, infos: {} });
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+
+
+    const parseIngredients = (obj) => {
+
+        const result = [...Object.keys(obj)];
+
+        const answer = result.reduce((acc, value) => {
+            if (value.startsWith("strIngredient")) {
+                return acc + String(obj[value] ?? "") + (obj[value] ? ", " : "")
+            }
+
+            return acc;
+        }, "")
+
+        console.log("answer: ", answer);
+        return answer
+
+    }
+
+
+
 
     const dishNameLength = 15;
-    return <div className="modal-overlay" onClick={(e) => { console.log("exit the modal"); setModal((a) => { return { state: false, infos: infos } }) }}>
-        <div className="modal-dish" >
+
+    console.log(data);
+
+    return <div className="modal-overlay" onClick={(e) => { console.log("exit the modal"); setModal((a) => { return { state: false, infos: infos } }) }}
+        tabIndex={-1}
+        onKeyDown={(e) => { console.log(e.key); if (e.key === 'Esc') { console.log("esc pressed"); setModal((a) => { return { state: false, infos: infos } }) } }}>
+        <div className="modal-dish" onClick={(e) => { e.stopPropagation(); }} >
             <div className="modal-dish-img">
                 <img src={infos.strMealThumb} alt={infos.strMeal} />
-                {/* <AddDish infos={infos} /> */}
             </div>
             <div className="dish-description">
                 <div className="dish-info">
-                    <div className="dish-name">{infos.strMeal.length > dishNameLength ? infos.strMeal.slice(0, dishNameLength).concat("...") : infos.strMeal}</div>
-                    <div className="dish-rating"><Rating rate={5} /></div>
+                    <div className="dish-name"><h3>Name:</h3>{infos.strMeal}</div>
+                    <div className="dish-price">
+                        <h3>Price: </h3>15$</div>
+                    <div className="dish-rating"><h3>Rating: <Rating rate={5} /></h3></div>
+                    <div className="country"><h3>Country:</h3>{data?.strCountry}</div>
                 </div>
-                <div className="dish-description-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet architecto aspernatur aperiam vero nihil </div>
-                <div className="dish-price">15$</div>
+                <h3>Instructions: </h3>
+                <div className="dish-description-text">
+                    {data?.strInstructions}</div>
+                <div className="dish-ing">
+                    <h3>Ingredients:</h3>
+                    {data !== undefined && parseIngredients(data)}
+                </div>
             </div>
+            <AddDish infos={infos} />
         </div>
     </div>
 
@@ -142,7 +203,6 @@ export function Dish({ infos, setModal }) {
 
         <div className="dish-img">
             <img src={infos.strMealThumb} alt={infos.strMeal} />
-            <AddDish infos={infos} />
         </div>
         <div className="dish-description">
             <div className="dish-info">
@@ -152,6 +212,7 @@ export function Dish({ infos, setModal }) {
             <div className="dish-description-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet architecto aspernatur aperiam vero nihil </div>
             <div className="dish-price">15$</div>
         </div>
+            <AddDish infos={infos} />
     </div>
 }
 
@@ -161,18 +222,22 @@ export function AddDish({ infos }) {
     const basket = useBasket();
     const value = basket.filter(a => a.id === infos.idMeal)[0]?.quantity ?? 0;
 
-    return (value !== 0 && <div className="qty-container">
+    return (value !== 0 && <div className="qty-container" onClick={e => { e.stopPropagation(); }}>
         <span className="rem" onClick={e => {
+            e.stopPropagation();
             dispatch({ type: (value > 1) ? 'REMOVE_DUPLICATE_BASKET' : 'REMOVE_FROM_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: (value - 1) < 0 ? 0 : value - 1, price: 15, img: infos.strMealThumb } })
-        }}>-</span>
+        }}>–</span>
 
         <span>{value === 0 ? "" : value}</span>
 
         <span className="add" onClick={e => {
+            e.stopPropagation();
             dispatch({ type: 'DUPLICATE_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value, price: 15, img: infos.strMealThumb } });
         }}
             onSelect={e => { e.preventDefault() }}>+</span>
     </div> || <button className="btn-add" onClick={(e) => {
+        e.stopPropagation();
+        console.log("stopping propagation");
         dispatch({ type: 'ADD_TO_BASKET', payload: { id: infos.idMeal, name: infos.strMeal, quantity: value + 1, price: 15, img: infos.strMealThumb } });
     }}><span>+</span></button>)
 
