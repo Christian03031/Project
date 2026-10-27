@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import "./filter.css"
 
-export default function Filter({ categories, handleUrlRequest, handlePageNumber, defaultCategory}) {
+export default function Filter({ categories, handleUrlRequest, handlePageNumber, defaultCategory, dishes, setDishes}) {
 
     const containerRef = useRef(null);
     const timeOutRef = useRef(null);
@@ -35,6 +35,43 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
     }, []);
 
 
+    const [search, setSearch] = useState("");
+    const [currentSearch, setCurrentSearch] = useState([]);
+
+    const delay = useCallback((fn, ms) => {
+        let timerId;
+
+        return function(...args){
+            clearTimeout(timerId);
+            timerId = setTimeout(() => this.call(args), ms);
+        }
+    })
+
+    useEffect(() => {
+        
+        if (search.length === 1) {
+            const fetch_by_letter = async () => {
+                const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`);
+
+                const json = await response.json();
+
+                setCurrentSearch(json.meals)
+                setDishes(json.meals);
+            }
+            
+            fetch_by_letter();
+        }
+
+        if(search.length > 1){
+            setDishes(currentSearch.filter(a => a.strMeal.toLowerCase().startsWith(search.toLowerCase())));
+        }
+        else{
+            setDishes(dishes);
+        }
+
+    }, [search])
+
+    console.log(search);
 
     return <div className="filter-section">
         <div className="text-filter">
@@ -67,5 +104,6 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
         </ul>
 
         <hr className="separator" />
+        <div className="search-container"><input type="text" placeholder="dish name" value={search} onChange={(e) => { setSearch(e.target.value) }} /></div>
     </div >
 }

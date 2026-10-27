@@ -67,9 +67,7 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
 
 export function Dishes({ dishes, page, handlePageNumber, meal }) {
 
-
     const [modal, setModal] = useState({ state: false, infos: {} });
-
     const length = dishes.length;
     const dishesPerPage = 10;
     const sectionRef = useRef(null);
@@ -79,6 +77,7 @@ export function Dishes({ dishes, page, handlePageNumber, meal }) {
 
     return <>
         <div className="main-container">
+            
             {modal.state === true && <Modal infos={{ ...modal.infos }} setModal={setModal} meal={meal} />}
             <section ref={sectionRef} className="dishes">
 

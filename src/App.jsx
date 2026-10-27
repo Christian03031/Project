@@ -55,7 +55,7 @@ function MainPage() {
   const [dishes, setDishes] = useState([]);
   const [categoriesURL, setCategoriesURL] = useState(URL_CATEGORIES);
   const [dishesURL, setDishesURL] = useState(LATEST_MEALS + "beef");
-
+  const [currentDishes, setCurrentDishes] = useState([]);
   const [page, setPage] = useState(1);
 
   function handleUrlRequest(str) {
@@ -76,6 +76,7 @@ function MainPage() {
       const json = await response.json();
 
       setDishes(json.meals);
+      setCurrentDishes(json.meals);
     }
 
     getData(categoriesURL);
@@ -83,8 +84,10 @@ function MainPage() {
 
   }, [dishesURL]);
 
+  console.log(currentDishes);
+
   return <>
-    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"}/>
+    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"} dishes = {currentDishes} setDishes = {setDishes}/>
     <Dishes dishes={dishes} page={page} handlePageNumber={setPage} meal = {meal}/>
   </>
 }
