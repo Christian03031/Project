@@ -18,7 +18,7 @@ export default function NavBar() {
 
     return <nav className="navbar">
         <div className="logo">
-            <img src="/logo.svg" alt="logo-image" />
+            <img src={`${import.meta.env.BASE_URL}logo.svg`} alt="logo-image" />
         </div>
         <div className="nav-link">
             <ul>
