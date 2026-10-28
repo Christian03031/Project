@@ -57,9 +57,11 @@ function MainPage() {
   const [dishesURL, setDishesURL] = useState(LATEST_MEALS + "beef");
   const [currentDishes, setCurrentDishes] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   function handleUrlRequest(str) {
     setDishesURL(LATEST_MEALS + str);
+    setLoading(true);
   }
 
   useEffect(() => {
@@ -77,18 +79,19 @@ function MainPage() {
 
       setDishes(json.meals);
       setCurrentDishes(json.meals);
+      setLoading(false);
     }
 
     getData(categoriesURL);
     getDishes(dishesURL);
+  
+
 
   }, [dishesURL]);
 
-  console.log(currentDishes);
-
   return <>
-    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"} dishes = {currentDishes} setDishes = {setDishes}/>
-    <Dishes dishes={dishes} page={page} handlePageNumber={setPage} meal = {meal}/>
+    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"} dishes = {currentDishes} setDishes = {setDishes} loading = {loading} setLoading={setLoading}/>
+    <Dishes dishes={dishes} page={page} handlePageNumber={setPage} meal = {meal} loading= {loading}/>
   </>
 }
 

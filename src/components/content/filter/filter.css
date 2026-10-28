@@ -108,3 +108,19 @@
     background: grey;
     margin: 2rem 0;
 }
+
+.search-container{
+    & input{
+        padding: .5em;
+        border-color: red;
+        border-radius: 25px;
+        transition: all .2s ease-out;
+
+        &:focus{
+            transform: scale(1.1);
+            transition: all .2s ease-out;
+            outline-color: orange;
+            border-color: transparent;
+        }
+    }
+}

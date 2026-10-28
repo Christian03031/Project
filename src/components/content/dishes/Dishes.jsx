@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useBasket, useDispatch } from "../../../context/contextBasket";
 import "./dish.css";
 import Rating from "../../items/rating/Rating";
@@ -8,6 +8,15 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
     const paginatorRef = useRef(null);
     const selectedPageRef = useRef(null);
     const [view, setView] = useState(0);
+
+
+    console.log(paginationLenght)
+    console.log(page)
+
+
+    useEffect(() => {
+        setView(0);
+    }, [paginationLenght])
 
     useEffect(() => {
         selectedPageRef.current?.scrollIntoView({
@@ -56,7 +65,7 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
                         handlePageNumber(a);
                         sectionRef.current.scrollIntoView({ top: "10px", behavior: 'smooth' });
                     }}>{a}</li>)}
-        {view < paginationLenght / maxPagesPerView &&
+        {paginationLenght > maxPagesPerView && view < paginationLenght / maxPagesPerView &&
             <li
                 onClick={e => { setView(a => a + maxPagesPerView) }}>&gt;</li>}
 
@@ -65,32 +74,57 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
 
 }
 
-export function Dishes({ dishes, page, handlePageNumber, meal }) {
+export function Dishes({ dishes, page, handlePageNumber, meal, loading }) {
 
     const [modal, setModal] = useState({ state: false, infos: {} });
+    const [dishesPerPage, setDishesPerPage] = useState(10);
+
     const length = dishes.length;
-    const dishesPerPage = 10;
+
+    console.log("length: ", dishes.length)
+    
     const sectionRef = useRef(null);
-    const paginationLenght = length > 10 ? length / dishesPerPage : length;
-    const currentStart = length > 10 ? dishesPerPage * page - 1 + (page > 1 ? 1 : 0) : 0;
-    let dishRange = dishes.slice(currentStart, currentStart + 10);
+    const paginationLenght = length > dishesPerPage ? length / dishesPerPage : 1;
+    const currentStart = length > dishesPerPage ? dishesPerPage * (page - 1) : 0;
+    let dishRange = dishes.slice(currentStart, (currentStart + dishesPerPage) > length ? length - 1 : (currentStart + dishesPerPage));
+    console.log("----------------------------")
+    console.log("dishrange: ", dishRange)
+    console.log("length: ", length)
+    console.log("dishperpage: ", dishesPerPage)
+    console.log("currentStart: ", currentStart)
+    console.log("page: ", page)
+
+
+
+    useEffect(() => {
+        const card = sectionRef.current?.querySelector(".dish-card");
+        const current = sectionRef?.current;
+        if (card && current) {
+            const width = card.getBoundingClientRect().width;
+            const currentWidth = current.getBoundingClientRect().width;
+
+            setDishesPerPage(Math.pow(Math.trunc(currentWidth / width), 2));
+        }
+    }, [dishes, loading]);
+
 
     return <>
         <div className="main-container">
-            
-            {modal.state === true && <Modal infos={{ ...modal.infos }} setModal={setModal} meal={meal} />}
-            <section ref={sectionRef} className="dishes">
 
-                {
-                    dishRange.map(dish => <article key={dish.strId}><Dish infos={{ ...dish }} setModal={setModal} /></article>)
-                }
+            {modal.state === true && <Modal infos={{ ...modal.infos }} setModal={setModal} meal={meal} />}
+            <section key={useId()} ref={sectionRef} className="dishes">
+                {loading && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(a => <DishSkeleton key={a} />)}
+                {!loading && dishRange.map((dish) => <article key={dish.strId}><Dish key={dish.strId} infos={{ ...dish }} setModal={setModal} /></article>)}
             </section>
 
-            <NavPaginator
-                paginationLenght={paginationLenght}
-                page={page}
-                handlePageNumber={handlePageNumber}
-                sectionRef={sectionRef}></NavPaginator>
+            {paginationLenght > 1 &&
+                <NavPaginator
+                    paginationLenght={paginationLenght}
+                    page={page}
+                    handlePageNumber={handlePageNumber}
+                    sectionRef={sectionRef}>
+                </NavPaginator>}
+
 
         </div>
     </>
@@ -110,7 +144,6 @@ function Modal({ infos, setModal, meal }) {
         }
 
         fetch_meal();
-        console.log(data);
 
     }, [])
 
@@ -153,17 +186,9 @@ function Modal({ infos, setModal, meal }) {
             return acc;
         }, "")
 
-        console.log("answer: ", answer);
         return answer
 
     }
-
-
-
-
-    const dishNameLength = 15;
-
-    console.log(data);
 
     return <div className="modal-overlay" onClick={(e) => { console.log("exit the modal"); setModal((a) => { return { state: false, infos: infos } }) }}
         tabIndex={-1}
@@ -211,9 +236,30 @@ export function Dish({ infos, setModal }) {
             <div className="dish-description-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet architecto aspernatur aperiam vero nihil </div>
             <div className="dish-price">15$</div>
         </div>
-            <AddDish infos={infos} />
+        <AddDish infos={infos} />
     </div>
 }
+
+export function DishSkeleton() {
+
+    return <div className="dish-card skeleton">
+
+        <div className="dish-img skeleton">
+            <img />
+        </div>
+        <div className="dish-description">
+            <div className="dish-info">
+                <div className="dish-name skeleton"></div>
+                <div className="dish-rating"></div>
+            </div>
+            <div className="dish-description-text skeleton">
+                {[1, 2, 3].map(a => <div key={a} className="string"></div>)}
+            </div>
+            <div className="dish-price skeleton"></div>
+        </div>
+    </div>
+}
+
 
 export function AddDish({ infos }) {
 
