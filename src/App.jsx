@@ -41,9 +41,11 @@ const router = createBrowserRouter([
         path: 'order',
         element: <Order />
       }
-    ]
-  }
-]);
+    ],
+  },
+], {
+  basename: import.meta.env.BASE_URL,
+});
 
 
 function MainPage() {
@@ -84,14 +86,14 @@ function MainPage() {
 
     getData(categoriesURL);
     getDishes(dishesURL);
-  
+
 
 
   }, [dishesURL]);
 
   return <>
-    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"} dishes = {currentDishes} setDishes = {setDishes} loading = {loading} setLoading={setLoading}/>
-    <Dishes dishes={dishes} page={page} handlePageNumber={setPage} meal = {meal} loading= {loading}/>
+    <Filter categories={categories} handleUrlRequest={handleUrlRequest} handlePageNumber={setPage} defaultCategory={"beef"} dishes={currentDishes} setDishes={setDishes} loading={loading} setLoading={setLoading} />
+    <Dishes dishes={dishes} page={page} handlePageNumber={setPage} meal={meal} loading={loading} />
   </>
 }
 
