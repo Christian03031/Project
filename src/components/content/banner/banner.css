@@ -1,9 +1,8 @@
 .banner {
-    width: min(1200px, 90%);
-    height: 400px;
+    margin-top: -50px;
+    width: fit-content;
+    height: 100vh;
     position: relative;
-    margin: 2em 0;
-    border-radius: 25px;
 }
 
 .banner::before {
@@ -11,21 +10,20 @@
     position: absolute;
     inset: 0;
 
-    border-radius: 25px;
     background:
-        linear-gradient(
-            rgba(59, 58, 58, 0.3),
-            rgba(238, 230, 230, 0.1)
-        ),
-        center / cover no-repeat var(--banner-image);
+        linear-gradient(rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.7)),
+        left / cover no-repeat var(--banner-image);
 
-    backdrop-filter: blur(10px);
+    /* filter: blur(1px); */
 }
 
 .content {
+    display: flex;
     position: relative;
     z-index: 1;
-    width: 75%;
+    width: fit-content;
+    /* height: 100%; */
     padding: 2em;
     display: flex;
     flex-direction: column;
@@ -33,33 +31,85 @@
     gap: 1em;
 
 
-    & > * {
+    &>* {
         color: wheat;
 
     }
 
     & h2 {
-        font-size: 50px;
+        font-size: 4em;
     }
 
     & p {
-        font-size: 1em;
-        font-weight: 1000;
+        font-size: 1.5em;
+        /* width: 25%; */
         line-height: 1.8em;
     }
+}
 
-    & button {
-        background-color: white;
-        color: grey;
-        border: 1px solid transparent;
-        border-radius: 25px;
-        padding: .7em;
-        transition: all .2s linear;
+.btn-banner {
+    background-color: white;
+    /* margin-top: auto; */
+    color: wheat;
+    border: 1px solid wheat;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: .7em;
+    transition: all .2s linear;
+    justify-self: flex-end;
 
-        &:hover {
-            transform: scale(1.1);
-            cursor: pointer;
-            box-shadow: 0px 0px 10px rgb(223, 145, 2);
+    &:hover {
+        transform: rotate(180);
+        cursor: pointer;
+        /* box-shadow: 0px 0px 10px rgb(223, 145, 2); */
+    }
+}
+
+
+.landing-2 {
+    background-color: orangered;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .container {
+        width: 70%;
+        padding: 5em 0;
+        display: flex;
+        flex-direction: row;
+        /* width: 1800px; */
+        align-items: center;
+        justify-content: center;
+
+        & .img-container {
+            width: 100%;
+
+            & img {
+                width: 100%;
+                aspect-ratio: auto;
+            }
+        }
+
+        & .infos-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 1em;
+            justify-content: center;
+            align-items: start;
+            padding: 0 1.5em;
+
+            & * {
+                color: wheat;
+            }
+
+            & h2 {
+                font-size: 2em;
+            }
+
+            & p {
+                font-size: 1.5em;
+            }
         }
     }
 
