@@ -109,18 +109,39 @@
     margin: 2rem 0;
 }
 
-.search-container{
-    & input{
+.search-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    margin-top: 1em;
+
+    & input {
+
         padding: .5em;
         border-color: red;
         border-radius: 25px;
         transition: all .2s ease-out;
 
-        &:focus{
+        &:focus {
             transform: scale(1.1);
             transition: all .2s ease-out;
             outline-color: orange;
             border-color: transparent;
         }
+        
     }
+    
+    & .logo-search {
+        position: absolute;
+        bottom: 15%;
+        right: .5em;
+        transition: all .2s ease-out;
+        
+    }
+}
+
+.search-container:has(input:focus) .logo-search {
+    opacity: 0;
+    transition: all .2s ease-out;
 }

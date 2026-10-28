@@ -10,21 +10,17 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
     const [view, setView] = useState(0);
 
 
-    console.log(paginationLenght)
-    console.log(page)
-
-
     useEffect(() => {
         setView(0);
     }, [paginationLenght])
 
-    useEffect(() => {
-        selectedPageRef.current?.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-            inline: "center"
-        });
-    }, []);
+    // useEffect(() => {
+    //     selectedPageRef.current?.scrollIntoView({
+    //         behavior: "smooth",
+    //         block: "center",
+    //         inline: "center"
+    //     });
+    // }, []);
 
     useEffect(() => {
 

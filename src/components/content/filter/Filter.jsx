@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import "./filter.css"
+import { Search } from "lucide-react";
 
 export default function Filter({ categories, handleUrlRequest, handlePageNumber, defaultCategory, dishes, setDishes, loading, setLoading }) {
 
@@ -107,6 +108,8 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
         delayed();
     }, [search])
 
+
+    const placeholder = "dish name";
     return <div className="filter-section">
         <div className="text-filter">
             <h2>Explore our menu</h2>
@@ -137,7 +140,9 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
             }
         </ul>
 
+
+
         <hr className="separator" />
-        <div className="search-container"><input type="text" placeholder="dish name" value={search} onChange={(e) => { setSearch(e.target.value) }} /></div>
+        <div className="search-container"><input type="text" placeholder={placeholder} value={search} onBlur = {(e) => {e.target.placeholder = placeholder}}onFocus={(e) => {e.target.placeholder = ""}} onChange={(e) => { setSearch(e.target.value) }} /><Search className="logo-search"/></div>
     </div >
 }
