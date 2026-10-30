@@ -22,7 +22,7 @@ export default function NavBar() {
         </div>
         <div className="nav-link">
             <ul>
-                <NavLink to="/home">Home</NavLink>
+                <NavLink to="/">Home</NavLink>
                 <NavLink to="/menu">Menu</NavLink>
                 <NavLink to="/basket">Basket</NavLink>
                 <NavLink to="/orders-list">Orders</NavLink>
