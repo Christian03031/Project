@@ -4,7 +4,7 @@
     }
 
     to {
-        filter: drop-shadow(0 0 5rem rgb(170, 131, 4));
+        filter: drop-shadow(1rem 1rem 2rem orange);
     }
 }
 
@@ -15,15 +15,10 @@
 
     to {
         filter: blur(2px);
-        /* transform: scale(1.05); */
     }
 }
 
-/* h2 {
-    font-size: 2em;
-} */
-
-p{
+p {
     font-size: clamp(1rem, 2vw, 1.2rem);
     width: 90%;
     line-height: 1.5em;
@@ -32,7 +27,6 @@ p{
 .banner {
     margin-top: -50px;
     width: fit-content;
-    height: 100vh;
     position: relative;
     background-color: black;
 }
@@ -54,7 +48,7 @@ p{
     display: flex;
     position: relative;
     z-index: 1;
-    height: 80vh;
+    height: 100dvh;
     width: fit-content;
     padding: 2em;
     display: flex;
@@ -71,10 +65,11 @@ p{
 
     & h2 {
         font-size: clamp(2rem, 6vw, 8rem);
+        text-align: center;
     }
 
     & p {
-        width: 60%;
+        padding: min(2rem, 2%);
         font-size: clamp(1rem, 2vw, 1.5rem);
         line-height: 1.8em;
         text-align: center;
@@ -90,43 +85,62 @@ p{
     padding: .7em;
     transition: all .2s linear;
     justify-self: flex-end;
-    font-size: clamp(.5rem, 2vw, 1.2rem);
+    font-size: clamp(1rem, 2vw, 1.2rem);
     backdrop-filter: blur(15px);
 
     &:hover {
-        transform: rotate(180);
+        transform: scale(1.1);
         cursor: pointer;
     }
 }
 
 
 .landing-2 {
-    height: 80vh;
-    background: linear-gradient(rgb(255, 102, 0) 90%, rgb(255, 255, 255));
+    min-height: 80dvh;
+    background: rgb(255, 102, 0);
     display: flex;
     align-items: center;
     justify-content: center;
 
     & .container {
-        width: 70%;
-        padding: 5em 0;
+        height: 100%;
+        width: 100%;
+        /* padding: 5em 0; */
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
 
         & .img-container {
-            width: 100%;
+            flex: 1;
+            flex-basis: 50%;
+            width: min(500px, 50dvw);
+            align-items: center;
+            display: flex;
+            /* width: 90%; */
+            /* height: 90%; */
+            /* aspect-ratio: 16 / 9; */
+            overflow: hidden;
+            /* display: flex; */
+            /* width: 90%; */
+            /* height: fit-content; */
+            justify-content: center;
+            /* width: 100dvw; */
 
             & img {
-                width: 100%;
-                aspect-ratio: auto;
+                /* max-width: 50dvw; */
+                width: min(500px, 50dvw);
+                ;
+                aspect-ratio: 1;
+                object-fit: contain;
                 transition: filter 3s ease;
                 animation: shadow 3s linear forwards;
             }
         }
 
         & .infos-container {
+            flex: 1;
+            flex-basis: 50%;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -150,31 +164,42 @@ p{
     }
 }
 
+
+
 .landing-3 {
     /* background: linear-gradient(rgb(255, 238, 220), rgb(255, 255, 255)); */
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    height: 100dvh;
+    padding: 1.5rem;
 
 
     & .container {
         display: flex;
-        flex-direction: row;
+        /* flex-direction: row; */
         gap: clamp(1rem, 2vw, 3rem);
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
 
         & .landing-card {
             display: flex;
-            width: max(20vw, 350px);
+
+            flex-basis: 300px;
+            height: 400px;
+            /* flex: 1 1 300px; */
+            /* width: max(20vw, 350px); */
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start;
             background: white;
             padding: 1.5em;
             padding-right: 2rem;
             padding-bottom: 3rem;
             gap: 1rem;
             border-radius: 40px;
+            /* border: 2px solid orange; */
             box-shadow: 0 0 25px rgb(228, 227, 227);
 
 
@@ -192,7 +217,8 @@ p{
 
             & p {
                 font-size: clamp(1rem, 2vw, 1.2rem);
-                width: 90%;
+                /* text-align: justify; */
+                width: 100%;
                 line-height: 1.5em;
             }
         }
@@ -206,6 +232,7 @@ p{
     justify-content: center;
     align-items: center;
     height: 60vh;
+    margin-bottom: 20%;
 
     & .container {
         display: flex;
@@ -248,4 +275,218 @@ p{
             }
         }
     }
+}
+
+.map-container {
+    width: 100vw;
+    height: 60dvh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    & * {
+        width: 100%;
+        height: 100%;
+        border: none;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+.social-icon {
+    fill: white;
+    width: 24px;
+    aspect-ratio: 1;
+    transition: .1s ease-in;
+
+    &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+        fill: orangered
+    }
+}
+
+.footer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    background-color: #000;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    line-height: 1.8rem;
+    padding-top: 2rem;
+
+    & img {
+        width: 60%;
+        aspect-ratio: 1;
+    }
+
+    & .footer-section {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        flex: 0 0 100px;
+
+
+        & .footer-part {
+            flex: 1;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+
+            & ul {
+
+                & li {
+                    list-style-type: none;
+                    transition: all .1s ease-in;
+
+
+                    &:hover {
+                        cursor: pointer;
+                        color: orangered;
+                        transform: scale(1.05);
+                    }
+                }
+
+            }
+        }
+
+        & .footer-part-text {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+            flex: 1.5;
+            gap: 1rem;
+
+            & .social-container {
+                display: flex;
+                flex-direction: row;
+                gap: .8rem;
+            }
+        }
+
+    }
+
+}
+
+@media (max-width: 1000px) {
+
+    .content {
+        & h2 {
+            font-size: max(10dvw, 3rem);
+        }
+
+
+    }
+
+    .landing-2 {
+
+        height: 100dvh;
+        /* margin-bottom: auto; */
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+
+        & .container {
+            flex-direction: column;
+
+            & .img-container {
+                max-height: fit-content;
+            }
+
+            & .infos-container {
+                /* max-height: fit-content; */
+                gap: 2rem;
+                flex: 1;
+                justify-content: flex-start;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 100px;
+
+                & p {
+                    font-size: clamp(1.2rem, 3dvw, 1.5rem);
+                    /* width: 100%; */
+                    text-align: justify;
+                }
+            }
+        }
+    }
+
+    .landing-3 {
+        height: fit-content;
+        padding: 10dvh 0;
+        align-items: start;
+
+        & .container {
+            gap: 2.5rem;
+            & .landing-card {
+                /* width: 500px; */
+                height: fit-content;
+            }
+        }
+    }
+
+    .landing-4 {
+        height: fit-content;
+
+
+        & .container {
+            flex-direction: column-reverse;
+            width: 100%;
+            & .hero-container {
+                width: clamp(300px, 70%, 500px);
+            }
+
+            & .text{
+                width: 100%;
+                padding: 2rem;
+                text-align: center;
+
+                & p{
+                    width: 100%;
+                    text-align: center;
+                }
+                & span{
+                    padding-left: 10%;
+                    align-items: start;
+
+                    & :first-child{
+                        width: 25px;
+                        height: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer {
+
+        gap: 1.5rem;
+
+        & .footer-section {
+            flex-direction: column;
+            gap: 1.5rem;
+
+            & .footer-part-text {
+                align-items: center;
+            }
+
+            & .logo-container {
+                text-align: center;
+            }
+
+            & .footer-part {
+                align-items: flex-start;
+            }
+        }
+
+        & span {
+            text-align: center;
+        }
+    }
+
+
 }

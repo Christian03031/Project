@@ -1,7 +1,6 @@
 import "./navbar.css"
-import { Search, ShoppingBasket} from 'lucide-react'
+import { ShoppingBasket } from 'lucide-react'
 import { NavLink } from "react-router"
-
 import { useBasket } from "../../context/contextBasket"
 
 

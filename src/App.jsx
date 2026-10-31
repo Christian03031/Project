@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import NavBar from "./components/navbar/NavBar"
-import { Banner, Section1, Section2, Section3} from "./components/content/banner/Banner"
+import { Banner, Section1, Section2, Section3, Map, Footer} from "./components/content/banner/Banner"
 import Filter from "./components/content/filter/Filter"
 import { Dishes } from "./components/content/dishes/Dishes"
 import Order from "./components/order/Order"
@@ -36,6 +36,8 @@ const router = createBrowserRouter([
         <Section1 imageURL={dishImage}/>
         <Section2 imageURL={dishImage}/>
         <Section3 imageURL={heroImage}/>
+        <Map/>
+        <Footer/>
         </>
       },
 

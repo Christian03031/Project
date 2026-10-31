@@ -14,13 +14,6 @@ function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, ma
         setView(0);
     }, [paginationLenght])
 
-    // useEffect(() => {
-    //     selectedPageRef.current?.scrollIntoView({
-    //         behavior: "smooth",
-    //         block: "center",
-    //         inline: "center"
-    //     });
-    // }, []);
 
     useEffect(() => {
 
@@ -78,7 +71,7 @@ export function Dishes({ dishes, page, handlePageNumber, meal, loading }) {
     const length = dishes.length;
 
     console.log("length: ", dishes.length)
-    
+
     const sectionRef = useRef(null);
     const paginationLenght = length > dishesPerPage ? length / dishesPerPage : 1;
     const currentStart = length > dishesPerPage ? dishesPerPage * (page - 1) : 0;
@@ -99,7 +92,7 @@ export function Dishes({ dishes, page, handlePageNumber, meal, loading }) {
             const width = card.getBoundingClientRect().width;
             const currentWidth = current.getBoundingClientRect().width;
 
-            setDishesPerPage(Math.pow(Math.trunc(currentWidth / width), 2));
+            setDishesPerPage(Math.max(10, Math.pow(Math.trunc(currentWidth / width), 2)));
         }
     }, [dishes, loading]);
 
@@ -218,12 +211,21 @@ function Modal({ infos, setModal, meal }) {
 export function Dish({ infos, setModal }) {
 
     const dishNameLength = 15;
+    const [thumbLoaded, setThumbLoaded] = useState(false);
+    const [thumbError, setThumbError] = useState(false)
 
     return <div className="dish-card" onClick={(e) => { setModal((a) => { return { state: true, infos: infos } }) }}>
 
-        <div className="dish-img">
-            <img src={infos.strMealThumb} alt={infos.strMeal} />
-        </div>
+        {!thumbError && <div className={`dish-img${!thumbLoaded ? " skeleton" : ""}`}>
+            <img
+                onLoad={() => { setThumbLoaded(true) }}
+                onError={() => { setThumbError(true) }}
+                src={infos.strMealThumb} alt={infos.strMeal}/>
+        </div>}
+
+        {thumbError && <div>Image unavailable</div>}
+
+
         <div className="dish-description">
             <div className="dish-info">
                 <div className="dish-name">{infos.strMeal.length > dishNameLength ? infos.strMeal.slice(0, dishNameLength).concat("...") : infos.strMeal}</div>
