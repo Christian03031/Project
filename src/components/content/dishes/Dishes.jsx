@@ -1,7 +1,10 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { useBasket, useDispatch } from "../../../context/contextBasket";
-import "./dish.css";
+import { EmptyMessage } from "../../items/rating/EmptyMessage/EmptyMessage";
 import Rating from "../../items/rating/Rating";
+
+import "./dish.css";
+import { TextAlignCenter } from "lucide-react";
 
 function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, maxPagesPerView = 3 }) {
 
@@ -69,20 +72,12 @@ export function Dishes({ dishes, page, handlePageNumber, meal, loading }) {
     const [dishesPerPage, setDishesPerPage] = useState(10);
 
     const length = dishes.length;
-
-    console.log("length: ", dishes.length)
-
     const sectionRef = useRef(null);
     const paginationLenght = length > dishesPerPage ? length / dishesPerPage : 1;
     const currentStart = length > dishesPerPage ? dishesPerPage * (page - 1) : 0;
-    let dishRange = dishes.slice(currentStart, (currentStart + dishesPerPage) > length ? length - 1 : (currentStart + dishesPerPage));
-    console.log("----------------------------")
-    console.log("dishrange: ", dishRange)
-    console.log("length: ", length)
-    console.log("dishperpage: ", dishesPerPage)
-    console.log("currentStart: ", currentStart)
-    console.log("page: ", page)
+    let dishRange = dishes.slice(currentStart, (currentStart + dishesPerPage) > length ? length : (currentStart + dishesPerPage));
 
+    console.log("dishrange: ", dishRange)
 
 
     useEffect(() => {
@@ -96,14 +91,23 @@ export function Dishes({ dishes, page, handlePageNumber, meal, loading }) {
         }
     }, [dishes, loading]);
 
+    console.log("dishes", dishes);
+    console.log("loading", loading);
 
     return <>
         <div className="main-container">
 
+            {!dishes.length && !loading && <EmptyMessage link={false} size={30} strokeWidth={2}>
+                    <p>There is nothing looking like this in the menu.</p>
+                    <p>Please try something else !</p>
+                </EmptyMessage>}
+
+
             {modal.state === true && <Modal infos={{ ...modal.infos }} setModal={setModal} meal={meal} />}
             <section key={useId()} ref={sectionRef} className="dishes">
-                {loading && [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(a => <DishSkeleton key={a} />)}
+                {loading && Array.from({ length: 10 }).map(a => <DishSkeleton key={a} />)}
                 {!loading && dishRange.map((dish) => <article key={dish.strId}><Dish key={dish.strId} infos={{ ...dish }} setModal={setModal} /></article>)}
+                
             </section>
 
             {paginationLenght > 1 &&
@@ -220,7 +224,8 @@ export function Dish({ infos, setModal }) {
             <img
                 onLoad={() => { setThumbLoaded(true) }}
                 onError={() => { setThumbError(true) }}
-                src={infos.strMealThumb} alt={infos.strMeal}/>
+                src={infos.strMealThumb} alt={infos.strMeal}
+                style={{ opacity: !thumbLoaded ? "0" : "1" }} />
         </div>}
 
         {thumbError && <div>Image unavailable</div>}
@@ -251,7 +256,7 @@ export function DishSkeleton() {
                 <div className="dish-rating"></div>
             </div>
             <div className="dish-description-text skeleton">
-                {[1, 2, 3].map(a => <div key={a} className="string"></div>)}
+                {[1, 2, 3, 4, 5].map(a => <div key={a} className="string"></div>)}
             </div>
             <div className="dish-price skeleton"></div>
         </div>

@@ -38,9 +38,17 @@
         flex-direction: row;
         gap: 2em;
         align-items: center;
-        overflow-x: hidden;
+        overflow-x: auto;
         overflow-y: hidden;
         scroll-behavior: smooth;
+
+
+        -webkit-overflow-scrolling: touch;
+
+        touch-action: pan-x;
+        scrollbar-width: none;
+
+
 
         & li {
             display: flex;
@@ -93,6 +101,10 @@
 
 
     }
+
+    &>ul::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 & separator {
@@ -130,7 +142,6 @@
         bottom: 15%;
         right: .5em;
         transition: all .2s ease-out;
-
     }
 }
 
@@ -146,17 +157,34 @@
 
             justify-content: center;
 
-            & p, & h2 {
+            & p,
+            & h2 {
                 text-align: center;
-                /* background-color: orange; */
-                /* align-self: stretch; */
-                /* display: inline-flex; */
-                /* flex: 1 1 100%; */
                 width: 100%;
             }
 
 
             /* text-align: center; */
+        }
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .search-container {
+        width: 100%;
+        justify-content: center;
+
+        & input {
+            width: 90%;
+        }
+
+        & .logo-search {
+            position: absolute;
+            bottom: 20%;
+            right: 8%;
+            transition: all .2s ease-out;
         }
     }
 

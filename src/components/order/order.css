@@ -26,8 +26,11 @@ main {
         }
 
         & fieldset {
+            width: 100%;
             display: flex;
             flex-direction: row;
+            align-self: start;
+            flex: 1 1 200px;
             gap: 1em;
             padding: .5rem 0;
 
@@ -38,14 +41,29 @@ main {
                 color: black;
                 border: 1px solid grey;
                 font-family: Outfit;
-                font-size:medium;
+                font-size: medium;
                 transition: all .2s linear;
 
-                &:focus {
-                    background-color: aliceblue;
-                    outline: none;
-                    /* border: 1px solid transparent; */
+                /* Input de type text */
+                &[type="firstname"] {
+                    flex: 0 1 50%;
                 }
+
+                /* Input de type text */
+                &[type="lastname"] {
+                    flex: 0 1 50%;
+                }
+
+                /* Input de type email */
+                &[type="mail"] {
+                    flex: 0 1 200px;
+                }
+
+                /* Input de type password */
+                &[type="phone"] {
+                    flex: 0 1 200px;
+                }
+
 
                 &:-webkit-autofill {
                     -webkit-box-shadow: 0 0 0 1000px white inset;
@@ -54,17 +72,11 @@ main {
 
                 }
             }
-
-            &:last-child {
-                display: flex;
-                flex-direction: column;
-                flex-shrink: 1;
-            }
         }
     }
-
-
 }
+
+
 
 .total-container {
     display: flex;
@@ -101,5 +113,23 @@ main {
     &:hover {
         cursor: pointer;
         transform: scale(1.02);
+    }
+}
+
+@media (max-width: 1200px) {
+    .order-container {
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 70%;
+    }
+
+    .form form fieldset {
+        flex-wrap: wrap;
+        /* background-color: orange; */
+
+        /* & {
+            max-width: 300px;
+        } */
+        /* background-color: rebeccapurple; */
     }
 }

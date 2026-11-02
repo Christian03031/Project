@@ -51,7 +51,7 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
     })
 
     useEffect(() => {
-        if(backup === null && dishes.length > 0){
+        if (backup === null && dishes.length > 0) {
             setBackup(dishes);
         }
     }, [dishes, backup]);
@@ -73,7 +73,7 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
 
     const handleSearch = async () => {
         if (search.length === 0) {
-            if(backup !== null){
+            if (backup !== null) {
                 setDishes(backup);
             }
 
@@ -87,21 +87,24 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
 
         if (firstLetter !== query[0]) {
             console.log("we here")
+            console.log(firstLetter)
+            console.log(query)
             meals = await fetch_by_letter(query[0])
-        } 
+        }
 
-        const filtered = meals.filter(meal => 
+        const filtered = meals.filter(meal =>
             meal.strMeal.toLowerCase().startsWith(query)
         );
 
-        console.log(filtered.length)
+        console.log(meals)
+        console.log(filtered)
 
         setDishes(filtered);
         setLoading(false);
-        
+
     }
 
-    const delayed = useMemo(() => delay(handleSearch, 300), [handleSearch]);
+    const delayed = useMemo(() => delay(handleSearch, 1000), [handleSearch]);
 
     useEffect(() => {
         setLoading(true);
@@ -122,11 +125,13 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
                     onClick={() => {
                         if (a.idCategory === selected) {
                             handlePageNumber(1);
+                            setSearch("")
                             setSelected(-1);
                             handleUrlRequest(defaultCategory)
                         }
                         else {
                             handlePageNumber(1);
+                            setSearch("")
                             setSelected(a.idCategory);
                             handleUrlRequest(a.strCategory)
                         }
@@ -143,6 +148,15 @@ export default function Filter({ categories, handleUrlRequest, handlePageNumber,
 
 
         <hr className="separator" />
-        <div className="search-container"><input type="text" placeholder={placeholder} value={search} onBlur = {(e) => {e.target.placeholder = placeholder}}onFocus={(e) => {e.target.placeholder = ""}} onChange={(e) => { setSearch(e.target.value) }} /><Search className="logo-search"/></div>
+        <div className="search-container">
+            <input
+                type="text"
+                placeholder={placeholder}
+                value={search}
+                onBlur={(e) => { e.target.placeholder = placeholder }}
+                onFocus={(e) => { e.target.placeholder = "" }}
+                onChange={(e) => { setSearch(e.target.value) }} />
+            <Search className="logo-search" />
+        </div>
     </div >
 }

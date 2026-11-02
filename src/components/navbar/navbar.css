@@ -89,20 +89,22 @@
 
 @media (max-width : 500px) {
     .navbar{
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         flex-wrap: wrap;
 
         & .data, & .logo{
-            display: none;
+            /* display: none; */
         }
     }
 
     .nav-link ul{
         flex-wrap: wrap;
+        justify-content: space-evenly;
         width: 100%;
+        transform: translateY(-.2em);
         gap: 1rem;
-        padding-bottom: 1rem;
+        /* padding-bottom: 1rem; */
         & *{
             flex-basis: 30%;
         }

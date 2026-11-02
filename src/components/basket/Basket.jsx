@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router";
 import { useBasket, useDispatch } from "../../context/contextBasket";
+import { EmptyMessage } from "../items/rating/EmptyMessage/EmptyMessage";
+import { useNavigate } from "react-router";
 import "./basket.css"
-
-import { FaceSlightlyFrowning } from "lucide-react";
 
 export function Basket() {
 
@@ -13,17 +12,12 @@ export function Basket() {
 
     const navigate = useNavigate();
 
-    return basket.length === 0 && <div className="basket-container-empty">
-        <div className="label-empty">
-            <FaceSlightlyFrowning size={32} />
-            <h1>Empty</h1>
-        </div>
-        <div className="label-content">
-            <p>Your basket is empty right now, try to find something in the menu and add order it !</p>
-            <button onClick={() => { navigate("/menu") }}>To menu</button>
-        </div>
-
-    </div> ||
+    return basket.length === 0 && 
+    <EmptyMessage navigate={navigate}>
+        <p>Your basket is empty right now</p>
+        <p>Try to find something in the menu and add order it !</p>
+        <p>In case having issues with the website or something else, you can contact the <a>support</a></p>
+        </EmptyMessage> ||
 
         basket.length > 0 && <div className="basket-container">
             <table className="basket-table">

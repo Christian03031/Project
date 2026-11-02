@@ -47,16 +47,16 @@ function OrderForm({infos, phoneFormatter, handlePhoneNumber, handleSubmit, setI
         <h2>Delivery Information</h2>
         <form onSubmit={handleSubmit}>
             <fieldset>
-                <input type="firstname" placeholder="First Name" onChange={e => setInfos({...infos, firstName: e.target.value})}/>
-                <input type="lastname" placeholder="Last Name" onChange={e => setInfos({...infos, lastName: e.target.value})}/>
+                <input type="firstname" placeholder="First Name" onChange={e => setInfos({...infos, firstName: e.target.value})} required/>
+                <input type="lastname" placeholder="Last Name" onChange={e => setInfos({...infos, lastName: e.target.value})} required/>
             </fieldset>
             <fieldset>
-                <input type="city" placeholder="City" onChange={e => setInfos({...infos, city: e.target.value})}/>
-                <input type="address" placeholder="Address" onChange={e => setInfos({...infos, address: e.target.value})}/>
+                <input type="city" placeholder="City" onChange={e => setInfos({...infos, city: e.target.value})} required/>
+                <input type="address" placeholder="Address" onChange={e => setInfos({...infos, address: e.target.value})} required/>
             </fieldset>
             <fieldset>
-                <input type="mail" placeholder="christian@gmail.com" onChange={e => setInfos({...infos, mail: e.target.value})}/>
-                <input type="phone" value={`${phoneFormatter(infos.phone)}`} onKeyDown={e => handlePhoneNumber(e)} onChange={() => {}} placeholder="Phone number" />
+                <input type="mail" placeholder="christian@gmail.com" onChange={e => setInfos({...infos, mail: e.target.value})} required/>
+                <input type="phone" value={`${phoneFormatter(infos.phone)}`} onKeyDown={e => handlePhoneNumber(e)} onChange={() => {}} placeholder="Phone number" required/>
             </fieldset>
         </form>
     </section>

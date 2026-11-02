@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./order-list.css"
 import { Package, Trash2, FaceSlightlyFrowning} from "lucide-react";
 import { useNavigate } from "react-router";
-
+import { EmptyMessage } from "../items/rating/EmptyMessage/EmptyMessage";
 import { Message } from "../items/rating/Message";
 
 function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder, setMessage}) {
@@ -12,12 +12,7 @@ function OrderComponent({ infos, index, maxLengthShow = 3, deleteOrder, setMessa
 
     return <div className="container-order">
 
-        <div style={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "1.5em",
-            alignItems: "center"
-        }}>
+        <div className="box-contain">
             <Package size={50} color={"orange"} />
             <div className="data-order">
                 <div className="content-order">
@@ -53,7 +48,6 @@ export default function OrderList() {
         setOrders(a => {
 
             const filtered = a.filter((_, i) => i !== index);
-
             localStorage.setItem("orders", JSON.stringify(filtered));
 
             return filtered;
@@ -62,20 +56,12 @@ export default function OrderList() {
 
     }
 
-
-    return orders.length === 0 && <div className="basket-container-empty">
-        <div className="label-empty">
-            <FaceSlightlyFrowning size={32} />
-            <h1>Empty</h1>
-        </div>
-        <div className="label-content">
-            <p>There is no orders right now ! Try to check our menu and find something nice to eat</p>
-            <button onClick={() => { navigate("/menu") }}>To menu</button>
-        </div>
-
-    </div> ||
-
-        <ul className="container-order-list">
+        return orders.length === 0 && 
+        <EmptyMessage navigate={navigate}>
+            <p>There is no orders right now !</p>
+            <p>Try to check our menu and find something nice to eat</p>
+            <p>In case having issues with the website or something else, you can contact the <a>support</a></p>
+            </EmptyMessage> || <ul className="container-order-list">
             {message && <Message type={"success"} title={"Success"} content = {"Order deleted sucessfully !"} style={{top: "80px", right: "80px"}}/>}
             {
                 orders.map((order, i) => <li key={i} className="li-order">
