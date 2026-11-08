@@ -1,16 +1,79 @@
-# React + Vite
+# Pechehod — Restaurant Ordering App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive restaurant ordering web application built with **React**, allowing users to browse meals, search for dishes, manage their shopping cart and place orders.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Meal browsing:** Explore meals by category and view detailed information.
+- **Search & pagination:** Search for dishes with debounce and navigate through paginated results.
+- **Shopping cart:** Add, remove and update meal quantities.
+- **Order management:** Create and manage orders.
+- **Data persistence:** Store cart and order information using localStorage.
+- **User experience:** Responsive design, loading skeletons, modals and animations.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- JavaScript (ES6+)
+- React Router
+- Context API & useReducer
+- CSS3
+- Motion
+- Lucide React
+- Vite
+- TheMealDB API
+- Vite
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Clone the repository:
+
+```bash
+git clone https://github.com/Christian03031/Project.git
+cd Project
+```
+
+Install dependencies and start the development server:
+
+```bash
+npm install
+npm run dev
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```text
+src/
+├── assets/
+├── components/
+│   ├── basket/
+│   ├── content/
+│   │   ├── banner/
+│   │   ├── dishes/
+│   │   └── filter/
+│   ├── items/
+│   ├── navbar/
+│   ├── order/
+│   └── orders-list/
+├── context/
+├── App.jsx
+└── main.jsx
+```
+
+## Future Improvements
+
+- Improve API error handling and form validation.
+- Add automated tests.
+- Migrate to TypeScript.
+- Integrate a backend and database.
+- Implement user authentication and persistent order management.
+
+## Demo live
+
+[christian03031.github.io/Project/]()

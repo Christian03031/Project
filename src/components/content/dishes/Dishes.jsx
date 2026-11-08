@@ -4,7 +4,7 @@ import { EmptyMessage } from "../../items/rating/EmptyMessage/EmptyMessage";
 import Rating from "../../items/rating/Rating";
 
 import "./dish.css";
-import { TextAlignCenter } from "lucide-react";
+import { XCircle } from "lucide-react";
 
 function NavPaginator({ paginationLenght, page, handlePageNumber, sectionRef, maxPagesPerView = 3 }) {
 
@@ -91,13 +91,10 @@ export function Dishes({ dishes, page, handlePageNumber, meal, loading }) {
         }
     }, [dishes, loading]);
 
-    console.log("dishes", dishes);
-    console.log("loading", loading);
-
     return <>
         <div className="main-container">
 
-            {!dishes.length && !loading && <EmptyMessage link={false} size={30} strokeWidth={2}>
+            {!dishes.length && !loading && <EmptyMessage link={false}>
                     <p>There is nothing looking like this in the menu.</p>
                     <p>Please try something else !</p>
                 </EmptyMessage>}
@@ -183,10 +180,12 @@ function Modal({ infos, setModal, meal }) {
 
     }
 
-    return <div className="modal-overlay" onClick={(e) => { console.log("exit the modal"); setModal((a) => { return { state: false, infos: infos } }) }}
+    return <div className="modal-overlay" 
+        onClick={(e) => {setModal((a) => { return { state: false, infos: infos } }) }}
         tabIndex={-1}
-        onKeyDown={(e) => { console.log(e.key); if (e.key === 'Esc') { console.log("esc pressed"); setModal((a) => { return { state: false, infos: infos } }) } }}>
+        onKeyDown={(e) => { if (e.key === 'Esc') { setModal((a) => { return { state: false, infos: infos } }) } }}>
         <div className="modal-dish" onClick={(e) => { e.stopPropagation(); }} >
+            <XCircle size={30} className="exit-modal" onClick={(e) => {setModal((a) => { return { state: false, infos: infos } }) }}/>
             <div className="modal-dish-img">
                 <img src={infos.strMealThumb} alt={infos.strMeal} />
             </div>

@@ -1,7 +1,7 @@
 @keyframes reveal {
     0% {
         opacity: 0;
-        transform: translateX(20px) scale(1.1);
+        transform: translateX(-20px) scale(1.1);
     }
 
     100% {
@@ -33,16 +33,15 @@
     & .dishes {
 
         display: grid;
-        margin-top: .5em;
-
+        margin-top: .2em;
         grid-template-columns: repeat(auto-fit,
                 minmax(250px, 1fr));
 
-        gap: 1.8em;
+        gap: 1em;
 
         scroll-margin-top: 30em;
         scroll-behavior: smooth;
-        margin-bottom: 2em;
+        /* margin-bottom: 2em; */
     }
 
     & article {
@@ -323,13 +322,27 @@
     transition: all .5s linear;
     animation: reveal .3s ease forwards;
 
+    & .exit-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        transition: all .1s linear;
+
+        &:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+    }
+
     & .modal-dish {
         width: 90%;
-        height: fit-content;
-        overflow: auto;
-        max-height: 90dvh;
+        /* height: fit-content; */
+        /* overflow: auto; */
+        height: 90dvh;
         display: flex;
         overflow-x: auto;
+        overflow-y: visible;
         position: relative;
         background-color: white;
         border-radius: 25px;
@@ -339,15 +352,13 @@
         }
 
         & .modal-dish-img {
-            flex: 0 0 45%;
-            min-width: 0;
+            /* flex: 0 0 45%; */
+            /* min-width: 0; */
 
             & img {
-                width: 100%;
-                height: 100%;
+                /* width: 100%; */
+                /* height: 100%; */
                 object-fit: cover;
-                /* border-top-left-radius: 25px; */
-                /* border-bottom-left-radius: 25px; */
             }
         }
 
@@ -358,9 +369,7 @@
             gap: 1em;
 
             & * {
-                /* background-color: rebeccapurple; */
                 flex: 1 1 40%;
-                /* padding: 0 1rem; */
             }
 
         }
@@ -386,38 +395,36 @@
     .modal-overlay {
         & .modal-dish {
             flex-direction: column;
-            /* border-radius: 60px; */
-            /* background-color: rebeccapurple; */
             overflow: auto;
 
 
 
             &::-webkit-scrollbar {
                 width: 0px;
-                background-color: rebeccapurple;
             }
 
             & * {
                 text-align: center;
             }
 
+            .dish-description-text,
+            .dish-ing {
+                text-align: justify;
+                margin-bottom: 1rem;
+            }
+
+            & .exit-modal {
+                top: .5rem;
+                right: .5rem;
+            }
+
+
+
             & .modal-dish-img {
-                /* display: flex; */
-                /* align-items: center;
-                justify-content: center; */
-                /* position: relative; */
-                /* width: 80%; */
-                /* background-color: rebeccapurple; */
                 display: flex;
                 justify-content: center;
-                padding: 1.5rem;
-                /* border-radius: 15px; */
-                /* background-color: red; */
+                padding: 2rem;
                 height: 100px;
-
-                /* background-color: rebeccapurple; */
-                /* border-radius: 0; */
-                /* background-color: red; */
 
                 & img {
                     max-width: 500px;
@@ -425,7 +432,6 @@
                     object-fit: contain;
                     border-radius: 25px;
 
-                    /* height: 25px; */
                 }
             }
         }
@@ -433,6 +439,12 @@
         & .btn-add {
             position: relative;
             align-self: self-end;
+        }
+
+        & .qty-container {
+            position: relative;
+            align-self: flex-end;
+            /* bottom: 0; */
         }
     }
 }
